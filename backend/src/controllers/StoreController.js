@@ -15,7 +15,7 @@ module.exports = {
     async postStore (request, response) {
         const { name, cnpj, cod_emp, serv_ip } = request.body;
 
-        const store = await connection('store').insert({
+        await connection('store').insert({
             name,
             cnpj,
             cod_emp,

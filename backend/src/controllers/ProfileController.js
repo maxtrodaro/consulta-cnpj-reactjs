@@ -5,6 +5,10 @@ module.exports = {
     async getProfile (request, response) {
         const profile = await connection('profile').select('*');
 
+        if (profile.length < 1) {
+            return response.json({ error: `Don't have stores yet.` });
+        }
+
         return response.json(profile);
     },
 
@@ -21,6 +25,14 @@ module.exports = {
 
     async deleteProfile (request, response) {
         const { username } = request.params;
+
+        const profile = await connection('profile')
+            .where('username', username)
+            .first();
+
+        if (!profile) {
+            return response.json({ error: 'Profile not found.' })
+        }
 
         await connection('profile').where('username', username).delete();
 
