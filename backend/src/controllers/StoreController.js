@@ -56,12 +56,14 @@ module.exports = {
             return response.status(401).json({ error: 'Store not found.' });
         }
 
-        await connection('store').where('id', id).update({
-            name,
-            cnpj,
-            cod_emp,
-            serv_ip,
-        });
+        await connection('store')
+            .where('id', id)
+            .update({
+                name,
+                cnpj,
+                cod_emp,
+                serv_ip
+            });
 
         return response.status(204).send();
     },

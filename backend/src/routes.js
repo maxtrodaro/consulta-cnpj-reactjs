@@ -16,7 +16,6 @@ routes.post('/store', celebrate({
         serv_ip: Joi.string().required().min(8).max(15)
     }),
 }), storeController.postStore);
-
 routes.delete('/store/:id', celebrate({
     [Segments.PARAMS]: Joi.object().keys({
         id: Joi.number().required()
@@ -46,5 +45,10 @@ routes.delete('/profile/:username', celebrate({
         username: Joi.string().required().min(4)
     }),
 }), profileController.deleteProfile);
+routes.put('/profile/:oldUsername', celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+        oldUsername: Joi.string().required().min(4)
+    }),
+}), profileController.editProfile);
 
 module.exports = routes;

@@ -3,6 +3,7 @@ const app = require('../../src/app');
 const connection = require('../../src/database/connection');
 
 describe('Store', () => {
+
     beforeEach(async () => {
         await connection.migrate.rollback();
         await connection.migrate.latest();
@@ -99,7 +100,7 @@ describe('Store', () => {
                 serv_ip: '10.1.230.4'
             });
 
-        expect(response.body).toEqual({});
+        expect(response.status).toBe(204);
     });
 
 });

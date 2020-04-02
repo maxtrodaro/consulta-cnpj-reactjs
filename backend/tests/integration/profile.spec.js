@@ -71,23 +71,41 @@ describe('Profile', () => {
     });
 
     test('when you try create a new Profile without name on body request', async () => {
-        const test = await request(app)
+        const response = await request(app)
             .post('/profile')
             .send({
                 username: 'egodoy'
             });
 
-        expect(test.body.message).toBe('"name" is required');
+        expect(response.body.message).toBe('"name" is required');
     });
 
     test('when you try create a new Profile without username on body request', async () => {
-        const test = await request(app)
+        const response = await request(app)
             .post('/profile')
             .send({
                 name: 'Eduardo'
             });
 
-        expect(test.body.message).toBe('"username" is required');
+        expect(response.body.message).toBe('"username" is required');
+    });
+
+    test('when you try edit a Profile with username on param', async () => {
+        const test = await request(app)
+            .post('/profile')
+            .send({
+                name: 'Eduardo',
+                username: 'egodoy'
+            });
+
+        const response = await request(app)
+            .put('/profile/egodoy')
+            .send({
+                name: 'Eduardo',
+                username: 'egodoy'
+            });
+
+        expect(response.status).toBe(204);
     });
 
 });

@@ -39,4 +39,26 @@ module.exports = {
         return response.status(204).send();
     },
 
+    async editProfile (request, response) {
+        const { name, username } = request.body;
+        const { oldUsername } = request.params;
+
+        const profile = await connection('profile')
+            .where('username', oldUsername)
+            .first();
+
+        if(!profile) {
+            return response.json({ error: 'Username not found' })
+        }
+
+        await connection('profile')
+            .where('username', oldUsername)
+            .update({
+                name,
+                username
+            });
+
+        return response.status(204).send();
+    },
+
 }
