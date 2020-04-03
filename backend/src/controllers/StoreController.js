@@ -21,16 +21,15 @@ module.exports = {
             cod_emp,
             serv_ip
         });
-
         return response.json('Loja Cadastrada');
     },
 
     async deleteStore (request, response) {
-        const { id } = request.params;
+        const { cnpj } = request.params;
         // Lembrar de passar o usuário que apagou
 
         const store = await connection('store')
-            .where('id', id)
+            .where('cnpj', cnpj)
             .first();
 
         if (!store) {
@@ -38,18 +37,18 @@ module.exports = {
         }
 
         await connection('store')
-            .where('id', id)
+            .where('cnpj', cnpj)
             .delete();
 
         return response.status(204).send();
     },
 
     async editStore (request, response) {
-        const { name, cnpj, cod_emp, serv_ip } = request.body;
-        const { id } = request.params;
+        const { name, cnpjBody, cod_emp, serv_ip } = request.body;
+        const { cnpj } = request.params;
 
         const store = await connection('store')
-            .where('id', id)
+            .where('cnpj', cnpj)
             .first();
 
         if (!store) {
@@ -57,10 +56,10 @@ module.exports = {
         }
 
         await connection('store')
-            .where('id', id)
+            .where('cnpj', cnpj)
             .update({
                 name,
-                cnpj,
+                cnpjBody,
                 cod_emp,
                 serv_ip
             });

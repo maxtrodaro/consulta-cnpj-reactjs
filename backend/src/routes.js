@@ -16,14 +16,14 @@ routes.post('/store', celebrate({
         serv_ip: Joi.string().required().min(8).max(15)
     }),
 }), storeController.postStore);
-routes.delete('/store/:id', celebrate({
+routes.delete('/store/:cnpj', celebrate({
     [Segments.PARAMS]: Joi.object().keys({
-        id: Joi.number().required()
+        cnpj: Joi.string().required().length(14)
     }),
 }), storeController.deleteStore);
-routes.put('/store/:id', celebrate({
+routes.put('/store/:cnpj', celebrate({
     [Segments.PARAMS]: Joi.object().keys({
-        id: Joi.number().required()
+        cnpj: Joi.string().required().length(14)
     }),
 }), storeController.editStore);
 
