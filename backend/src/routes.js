@@ -4,6 +4,7 @@ const { celebrate, Segments, Joi } = require('celebrate');
 const storeController = require('./controllers/StoreController');
 const searchController = require('./controllers/SearchController');
 const profileController = require('./controllers/ProfileController');
+const loginController = require('./controllers/LoginController');
 
 const routes = express.Router();
 
@@ -50,5 +51,11 @@ routes.put('/profile/:oldUsername', celebrate({
         oldUsername: Joi.string().required().min(4)
     }),
 }), profileController.editProfile);
+
+routes.post('/login', celebrate({
+    [Segments.BODY]: Joi.object().keys({
+        username: Joi.string().required().min(4)
+    }),
+}), loginController.loginProfile);
 
 module.exports = routes;
