@@ -4,8 +4,9 @@ import { FiArrowLeftCircle } from "react-icons/fi";
 
 import logoLinx from "../../assets/logo-linx.svg";
 
+import { Input, Button } from "../../global";
+import { ProfilePage } from "./style";
 import api from "../../services/requestAPI";
-import "./style.css";
 
 export default function Register() {
 	const [name, setName] = useState("");
@@ -18,7 +19,7 @@ export default function Register() {
 
 		const data = {
 			name,
-			username
+			username,
 		};
 
 		try {
@@ -33,31 +34,29 @@ export default function Register() {
 	}
 
 	return (
-		<div className="register-container">
-			<form className="register-container__form" onSubmit={registerUsers}>
-				<input
-					className="input"
-					placeholder="Digite seu nome completo"
-					onChange={e => setName(e.target.value)}
-				/>
-				<input
-					className="input"
-					placeholder="Digite seu usuário"
-					onChange={e => setUsername(e.target.value)}
-				/>
-				<button className="button" type="submit">
-					Finalizar Cadastro
-				</button>
-				<Link className="register-link" to="/">
-					<FiArrowLeftCircle
-						size={16}
-						color="#48185b"
-						style={{ marginRight: "10px" }}
+		<ProfilePage>
+			<div className="register-container">
+				<form className="register-container__form" onSubmit={registerUsers}>
+					<Input
+						placeholder="Digite seu nome completo"
+						onChange={(e) => setName(e.target.value)}
 					/>
-					Voltar para o login
-				</Link>
-			</form>
-			<img src={logoLinx} alt="Logo Linx" />
-		</div>
+					<Input
+						placeholder="Digite seu usuário"
+						onChange={(e) => setUsername(e.target.value)}
+					/>
+					<Button type="submit">Finalizar Cadastro</Button>
+					<Link className="register-container__form__link" to="/">
+						<FiArrowLeftCircle
+							size={16}
+							color="#48185b"
+							style={{ marginRight: "10px" }}
+						/>
+						Voltar para o login
+					</Link>
+				</form>
+				<img src={logoLinx} alt="Logo Linx" />
+			</div>
+		</ProfilePage>
 	);
 }

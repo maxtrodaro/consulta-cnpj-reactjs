@@ -5,10 +5,12 @@ import { Link, useHistory } from "react-router-dom";
  */
 import { FiLogIn } from "react-icons/fi";
 
+import { LoginPage } from "./style";
+
 import api from "../../services/requestAPI";
-import "./style.css";
 
 import logoLinx from "../../assets/logo-linx.svg";
+import { Input, Button } from "../../global";
 
 export default function Login() {
 	const [username, setUsername] = useState("");
@@ -31,22 +33,21 @@ export default function Login() {
 	}
 
 	return (
-		<div className="login-container">
-			<img src={logoLinx} alt="Linx" />
-			<form className="login-container__form" onSubmit={loginUsers}>
-				<input
-					className="input"
-					placeholder="Digite seu username"
-					onChange={e => setUsername(e.target.value)}
-				/>
-				<button className="button" type="submit">
-					Entrar
-				</button>
-				<Link className="register-link" to="/profile">
-					<FiLogIn size={16} color="#48185b" style={{ marginRight: "5px" }} />
-					Não tenho cadastro
-				</Link>
-			</form>
-		</div>
+		<LoginPage>
+			<div className="login-container">
+				<img src={logoLinx} alt="Linx" />
+				<form className="login-container__form" onSubmit={loginUsers}>
+					<Input
+						placeholder="Digite seu username"
+						onChange={(e) => setUsername(e.target.value)}
+					/>
+					<Button type="submit">Entrar</Button>
+					<Link className="login-container__form__link" to="/profile">
+						<FiLogIn size={16} color="#48185b" style={{ marginRight: "5px" }} />
+						Não tenho cadastro
+					</Link>
+				</form>
+			</div>
+		</LoginPage>
 	);
 }
