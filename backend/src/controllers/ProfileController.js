@@ -5,7 +5,7 @@ module.exports = {
 		const profile = await connection("profile").select("*");
 
 		if (profile.length < 1) {
-			return response.json({ error: `Don't have stores yet.` });
+			return response.json({ error: `Don't have users yet.` });
 		}
 
 		return response.json(profile);
@@ -14,12 +14,20 @@ module.exports = {
 	async postProfile(request, response) {
 		const { name, username } = request.body;
 
-		await connection("profile").insert({
-			name,
-			username,
-		});
+		const profile = await connection("profile")
+			.where("username", username)
+			.select("username");
 
-		return response.json("Usuário Cadastrado");
+		if (!profile.length) {
+			await connection("profile").insert({
+				name,
+				username,
+			});
+
+			return response.json("Usuário Cadastrado");
+		} else {
+			return response.json("Usuário já cadastrado, tente novamente!");
+		}
 	},
 
 	async deleteProfile(request, response) {

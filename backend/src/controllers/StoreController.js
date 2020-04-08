@@ -14,13 +14,26 @@ module.exports = {
 	async postStore(request, response) {
 		const { name, cnpj, cod_emp, serv_ip } = request.body;
 
-		await connection("store").insert({
-			name,
-			cnpj,
-			cod_emp,
-			serv_ip,
-		});
-		return response.json("Loja Cadastrada");
+		const storeCnpj = await connection("store")
+			.where("cnpj", cnpj)
+			.select("cnpj");
+
+		const storeCodemp = await connection("store")
+			.where("cod_emp", cod_emp)
+			.select("cod_emp");
+
+		if (!storeCnpj.length && !storeCodemp.length) {
+			await connection("store").insert({
+				name,
+				cnpj,
+				cod_emp,
+				serv_ip,
+			});
+
+			return response.json("Loja Cadastrada!");
+		} else {
+			return response.json("Loja já cadastrada, tente novamente!");
+		}
 	},
 
 	async deleteStore(request, response) {

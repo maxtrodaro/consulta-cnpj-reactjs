@@ -109,7 +109,7 @@ describe("Tests", () => {
 			serv_ip: "10.1.230.4",
 		});
 
-		expect(response.body).toBe("Loja Cadastrada");
+		expect(response.body).toBe("Loja Cadastrada!");
 	});
 
 	test("when you try create a new Store without name on body request", async () => {
