@@ -11,14 +11,14 @@ export default createGlobalStyle`
 	}
 
 	body {
-		font: 400 14px OpenSans, sans-serif;
+		font: 400 14px 'OpenSans', sans-serif;
 		background-color: #cccccc;
 		-webkit-font-smoothing: antialiased;
 	}
 
 	input,
 	button {
-		font: 400 18px OpenSans, sans-serif;
+		font: 400 18px 'OpenSans', sans-serif;
 	}
 
 	button {
@@ -31,5 +31,15 @@ export default createGlobalStyle`
 
 	a {
 		text-decoration: none;
+	}
+
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+
+	input[type=number] {
+		-moz-appearance: textfield;
 	}
 `;

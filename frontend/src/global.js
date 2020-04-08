@@ -24,6 +24,19 @@ export const Button = styled.button`
 	width: 350px;
 `;
 
+export const HomeButton = styled.button`
+	height: 60px;
+	background: #48185b;
+	border: 0;
+	border-radius: 6px;
+	color: #ffffff;
+	font-weight: 700;
+	text-align: center;
+	text-decoration: none;
+	line-height: 60px;
+	width: 200px;
+`;
+
 export const RegisterLink = styled.a`
 	display: flex;
 	align-items: center;
