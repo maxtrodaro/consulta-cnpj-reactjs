@@ -42,3 +42,20 @@ export const RegisterLink = styled.a`
 	align-items: center;
 	margin-top: 20px;
 `;
+
+export const InputSearch = styled.input`
+	width: 180px;
+	height: 40px;
+	color: #333333;
+	border: 2px solid #48185b;
+	border-radius: 6px 0 0 6px;
+	padding: 0 10px;
+`;
+
+export const ButtonSearch = styled.button`
+	height: 40px;
+	padding: 5px;
+	border-radius: 0 6px 6px 0;
+	border: 2px solid #48185b;
+	margin-top: 0;
+`;

@@ -4,7 +4,7 @@ import { FiArrowLeftCircle } from "react-icons/fi";
 
 import logoLinx from "../../assets/logo-linx.svg";
 
-import { Input, Button } from "../../global";
+import { Input, Button } from "../../util/Style/global";
 import { ProfilePage } from "./style";
 import api from "../../services/requestAPI";
 

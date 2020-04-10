@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 
 import Header from "../../util/Header/header";
 import { HomePage } from "./style";
-import { HomeButton } from "../../global";
+import { HomeButton } from "../../util/Style/global";
 
 export default function Home() {
 	const history = useHistory();

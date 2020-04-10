@@ -10,7 +10,7 @@ import { LoginPage } from "./style";
 import api from "../../services/requestAPI";
 
 import logoLinx from "../../assets/logo-linx.svg";
-import { Input, Button } from "../../global";
+import { Input, Button } from "../../util/Style/global";
 
 export default function Login() {
 	const [username, setUsername] = useState("");

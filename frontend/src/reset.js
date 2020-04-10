@@ -42,4 +42,8 @@ export default createGlobalStyle`
 	input[type=number] {
 		-moz-appearance: textfield;
 	}
+
+	li {
+		list-style: none;
+	}
 `;

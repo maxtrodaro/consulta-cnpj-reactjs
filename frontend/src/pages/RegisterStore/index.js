@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import Header from "../../util/Header/header";
-import { Input, Button } from "../../global";
+import { Input, Button } from "../../util/Style/global";
 import { RegisterPage } from "./style";
 import api from "../../services/requestAPI";
 
@@ -83,6 +83,7 @@ export default function RegisterStore() {
 					<Button type="submit" onClick={registerNewStore}>
 						Nova loja
 					</Button>
+					<Link to="/home">Voltar</Link>
 				</form>
 			</section>
 		</RegisterPage>

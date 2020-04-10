@@ -32,7 +32,7 @@ module.exports = {
 
 			return response.json("Loja Cadastrada!");
 		} else {
-			return response.json("Loja já cadastrada, tente novamente!");
+			return response.status(400).json("Loja já cadastrada, tente novamente!");
 		}
 	},
 
@@ -43,7 +43,7 @@ module.exports = {
 		const store = await connection("store").where("cnpj", cnpj).first();
 
 		if (!store) {
-			return response.json({ error: "Store not found." });
+			return response.status(400).json({ error: "Loja não encontrada." });
 		}
 
 		await connection("store").where("cnpj", cnpj).delete();
@@ -58,7 +58,7 @@ module.exports = {
 		const store = await connection("store").where("cnpj", cnpj).first();
 
 		if (!store) {
-			return response.status(401).json({ error: "Store not found." });
+			return response.status(401).json({ error: "Loja não encontrada." });
 		}
 
 		await connection("store").where("cnpj", cnpj).update({
