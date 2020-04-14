@@ -5,7 +5,6 @@ export const HomePage = styled.section`
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		flex-direction: column;
 		width: 70%;
 		margin: 0 auto;
 		height: 60vh;

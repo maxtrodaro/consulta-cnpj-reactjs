@@ -14,6 +14,7 @@ export default createGlobalStyle`
 		font: 400 14px 'OpenSans', sans-serif;
 		background-color: #cccccc;
 		-webkit-font-smoothing: antialiased;
+		height: 100vh;
 	}
 
 	input,
