@@ -36,6 +36,12 @@ routes.put(
 		[Segments.PARAMS]: Joi.object().keys({
 			cnpj: Joi.string().required().length(14),
 		}),
+		[Segments.BODY]: Joi.object().keys({
+			name: Joi.string().required(),
+			cnpj: Joi.string().required().length(14),
+			cod_emp: Joi.string().required().length(8),
+			serv_ip: Joi.string().required().min(8).max(15),
+		}),
 	}),
 	storeController.editStore
 );

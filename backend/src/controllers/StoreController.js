@@ -3,10 +3,13 @@ const connection = require("../database/connection");
 module.exports = {
 	async getStore(request, response) {
 		const store = await connection("store").select("*");
+		const [counter] = await connection("store").count();
 
 		if (store.length < 1) {
 			return response.json({ error: `Don't have stores yet.` });
 		}
+
+		response.header("Total-Count", counter["count(*)"]);
 
 		return response.json(store);
 	},
