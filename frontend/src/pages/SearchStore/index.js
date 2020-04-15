@@ -5,9 +5,26 @@ import Header from "../../util/Header/header";
 import { SearchPage } from "./style";
 import { InputSearch, ButtonSearch } from "../../util/Style/global";
 import api from "../../services/requestAPI";
+import StoreItem from "./StoreItem";
+
+async function filterByCnpj(cnpj) {
+	try {
+		const response = await api.get("/searchStore", {
+			headers: {
+				CNPJ: cnpj,
+			},
+		});
+
+		return response.data;
+	} catch (error) {
+		throw new Error(error);
+	}
+}
 
 export default function SearchStore() {
 	const [stores, setStores] = useState([]);
+	const [cnpj, setCnpj] = useState([]);
+	const [filteredStore, setFilteredStore] = useState(null);
 
 	useEffect(() => {
 		const loadStores = async () => {
@@ -19,6 +36,23 @@ export default function SearchStore() {
 		loadStores();
 	}, []);
 
+	function handleFilter(event) {
+		event.preventDefault();
+
+		filterByCnpj(cnpj)
+			.then(([store]) => {
+				setFilteredStore(store);
+			})
+			.catch(() => {
+				setFilteredStore(null);
+			});
+	}
+
+	const handleChangeCnpj = (e) => {
+		setCnpj(e.target.value);
+		setFilteredStore(null);
+	};
+
 	return (
 		<SearchPage>
 			<Header />
@@ -28,8 +62,9 @@ export default function SearchStore() {
 						<InputSearch
 							placeholder="Digite o CNPJ"
 							type="number"
+							onChange={handleChangeCnpj}
 						></InputSearch>
-						<ButtonSearch>
+						<ButtonSearch onClick={handleFilter}>
 							<FiSearch color="#48185b" size={20} />
 						</ButtonSearch>
 					</div>
@@ -67,25 +102,11 @@ export default function SearchStore() {
 						</section>
 						<section className="search-container__content__bottom">
 							<ul className="search-container__content__bottom__list">
-								{stores.map((store) => (
-									<li
-										key={store.id}
-										className="search-container__content__bottom__list__item"
-									>
-										<p className="search-container__content__bottom__list__item__cnpj">
-											{store.cnpj}
-										</p>
-										<p className="search-container__content__bottom__list__item__name">
-											{store.name}
-										</p>
-										<p className="search-container__content__bottom__list__item__cod">
-											{store.cod_emp}
-										</p>
-										<p className="search-container__content__bottom__list__item__serv">
-											{store.serv_ip}
-										</p>
-									</li>
-								))}
+								{filteredStore ? (
+									<StoreItem store={filteredStore} />
+								) : (
+									stores.map((store) => <StoreItem store={store} />)
+								)}
 							</ul>
 						</section>
 					</section>
