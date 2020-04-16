@@ -12,9 +12,11 @@ export default createGlobalStyle`
 
 	body {
 		font: 400 14px 'OpenSans', sans-serif;
-		background-color: #cccccc;
 		-webkit-font-smoothing: antialiased;
 		height: 100vh;
+		background: #3A0D51;
+		background: -webkit-linear-gradient(to right, #3A0D51, #621D3D);
+		background: linear-gradient(to right, #3A0D51, #621D3D);
 	}
 
 	input,

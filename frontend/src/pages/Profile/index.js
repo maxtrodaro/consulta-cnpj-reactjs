@@ -41,15 +41,17 @@ export default function Register() {
 						placeholder="Digite seu nome completo"
 						onChange={(e) => setName(e.target.value)}
 					/>
+					<p className="register-container__form__name"></p>
 					<Input
 						placeholder="Digite seu usuário"
 						onChange={(e) => setUsername(e.target.value)}
 					/>
+					<p className="register-container__form__user"></p>
 					<Button type="submit">Finalizar Cadastro</Button>
 					<Link className="register-container__form__link" to="/">
 						<FiArrowLeftCircle
 							size={16}
-							color="#48185b"
+							color="#696969"
 							style={{ marginRight: "10px" }}
 						/>
 						Voltar para o login

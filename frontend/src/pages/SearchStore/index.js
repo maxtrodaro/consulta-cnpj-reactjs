@@ -68,21 +68,6 @@ export default function SearchStore() {
 							<FiSearch color="#48185b" size={20} />
 						</ButtonSearch>
 					</div>
-					<div className="search-container__top__option">
-						<InputSearch placeholder="Digite o nome" type="text"></InputSearch>
-						<ButtonSearch>
-							<FiSearch color="#48185b" size={20} />
-						</ButtonSearch>
-					</div>
-					<div className="search-container__top__option">
-						<InputSearch
-							placeholder="Digite o servidor"
-							type="number"
-						></InputSearch>
-						<ButtonSearch>
-							<FiSearch color="#48185b" size={20} />
-						</ButtonSearch>
-					</div>
 				</section>
 				<div style={{ display: "flex", justifyContent: "space-between" }}>
 					<section className="search-container__content">

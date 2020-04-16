@@ -7,7 +7,7 @@ export const SearchPage = styled.section`
 		&__top {
 			display: flex;
 			align-items: center;
-			justify-content: space-between;
+			justify-content: center;
 			&__option {
 				display: flex;
 				align-items: center;
