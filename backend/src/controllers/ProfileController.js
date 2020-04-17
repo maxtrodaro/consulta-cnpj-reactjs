@@ -1,4 +1,5 @@
 const connection = require("../database/connection");
+const generateToken = require("../util/Token/generateToken");
 
 module.exports = {
 	async getProfile(request, response) {
@@ -12,19 +13,22 @@ module.exports = {
 	},
 
 	async postProfile(request, response) {
-		const { name, username } = request.body;
+		const { name, username, password } = request.body;
 
 		const profile = await connection("profile")
 			.where("username", username)
 			.select("username");
 
 		if (!profile.length) {
-			await connection("profile").insert({
+			const [user] = await connection("profile").insert({
 				name,
 				username,
+				password,
 			});
 
-			return response.json("Usuário Cadastrado");
+			const token = generateToken({ id: user });
+
+			return response.json({ token });
 		} else {
 			return response.json("Usuário já cadastrado, tente novamente!");
 		}

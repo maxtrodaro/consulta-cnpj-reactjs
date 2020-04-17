@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 import iconName from "../../assets/icon-name.png";
 import iconUser from "../../assets/icon-user.png";
+import iconPass from "../../assets/icon-pass.png";
 
 export const ProfilePage = styled.section`
 	.register-container {
@@ -42,6 +43,18 @@ export const ProfilePage = styled.section`
 					height: 24px;
 					width: 24px;
 					top: 147px;
+					left: 45px;
+				}
+			}
+			&__pass {
+				&::before {
+					content: "";
+					background: url(${iconPass}) no-repeat;
+					position: absolute;
+					display: block;
+					height: 30px;
+					width: 32px;
+					top: 225px;
 					left: 45px;
 				}
 			}

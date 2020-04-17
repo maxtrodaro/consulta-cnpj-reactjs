@@ -14,6 +14,7 @@ import { Input, Button } from "../../util/Style/global";
 
 export default function Login() {
 	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
 
 	const history = useHistory();
 
@@ -21,14 +22,24 @@ export default function Login() {
 		e.preventDefault();
 
 		try {
-			const response = await api.post("/login", { username });
+			const response = await api.post("/authenticate", { username, password });
 
-			localStorage.setItem("username", username);
-			localStorage.setItem("name", response.data.name);
+			const token = response.data.token;
+			sessionStorage.setItem("username", response.data.user[0].username);
+			sessionStorage.setItem("name", response.data.user[0].name);
 
-			history.push("/home");
+			try {
+				await api.get("/token", {
+					headers: {
+						Authorization: "Bearer " + token,
+					},
+				});
+				history.push("/home");
+			} catch (error) {
+				throw new Error(error);
+			}
 		} catch (error) {
-			alert("Falha no login, tente novamente!");
+			//alert("Falha no login, tente novamente!");
 		}
 	}
 
@@ -44,7 +55,8 @@ export default function Login() {
 					<p className="login-container__form__user"></p>
 					<Input
 						placeholder="Senha:"
-						onChange={(e) => setUsername(e.target.value)}
+						onChange={(e) => setPassword(e.target.value)}
+						type="password"
 					/>
 					<p className="login-container__form__password"></p>
 					<Button type="submit">Entrar</Button>

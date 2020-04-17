@@ -5,6 +5,9 @@ const storeController = require("./controllers/StoreController");
 const searchController = require("./controllers/SearchController");
 const profileController = require("./controllers/ProfileController");
 const loginController = require("./controllers/LoginController");
+const tokenController = require("./controllers/TokenController");
+
+const authMiddleware = require("./middlewares/authorization");
 
 const routes = express.Router();
 
@@ -65,6 +68,7 @@ routes.post(
 		[Segments.BODY]: Joi.object().keys({
 			name: Joi.string().required().min(4),
 			username: Joi.string().required().min(4),
+			password: Joi.string().required(),
 		}),
 	}),
 	profileController.postProfile
@@ -97,5 +101,19 @@ routes.post(
 	}),
 	loginController.loginProfile
 );
+
+routes.post(
+	"/authenticate",
+	celebrate({
+		[Segments.BODY]: Joi.object().keys({
+			username: Joi.string().required().min(4),
+			password: Joi.string().required(),
+		}),
+	}),
+	loginController.jwtProfile
+);
+
+routes.use(authMiddleware);
+routes.get("/token", tokenController.getToken);
 
 module.exports = routes;

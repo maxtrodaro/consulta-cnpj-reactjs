@@ -8,10 +8,10 @@ import logoLinx from "../../assets/logo-linx.png";
 export default function Header() {
 	const history = useHistory();
 
-	const userName = localStorage.getItem("name");
+	const userName = sessionStorage.getItem("name");
 
 	function logoutUsers() {
-		localStorage.clear();
+		sessionStorage.clear();
 
 		history.push("/");
 	}

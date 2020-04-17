@@ -11,6 +11,7 @@ import api from "../../services/requestAPI";
 export default function Register() {
 	const [name, setName] = useState("");
 	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
 
 	const history = useHistory();
 
@@ -20,12 +21,13 @@ export default function Register() {
 		const data = {
 			name,
 			username,
+			password,
 		};
 
 		try {
-			const response = await api.post("/profile", data);
+			await api.post("/profile", data);
 
-			alert(`${response.data}`);
+			alert(`Usuário Cadastrado`);
 
 			history.push("/");
 		} catch (error) {
@@ -47,6 +49,12 @@ export default function Register() {
 						onChange={(e) => setUsername(e.target.value)}
 					/>
 					<p className="register-container__form__user"></p>
+					<Input
+						placeholder="Digite sua senha"
+						onChange={(e) => setPassword(e.target.value)}
+						type="password"
+					/>
+					<p className="register-container__form__pass"></p>
 					<Button type="submit">Finalizar Cadastro</Button>
 					<Link className="register-container__form__link" to="/">
 						<FiArrowLeftCircle
