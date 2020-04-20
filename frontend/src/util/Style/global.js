@@ -32,15 +32,16 @@ export const Button = styled.button`
 
 export const HomeButton = styled.button`
 	height: 60px;
-	background: #48185b;
+	background: #f57c00;
 	border: 0;
-	border-radius: 6px;
+	border-radius: 0 0 6px 6px;
 	color: #ffffff;
 	font-weight: 700;
 	text-align: center;
 	text-decoration: none;
 	line-height: 60px;
-	width: 200px;
+	width: 100%;
+	margin: 0;
 `;
 
 export const RegisterLink = styled.a`

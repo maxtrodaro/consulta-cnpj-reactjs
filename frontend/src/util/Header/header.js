@@ -32,7 +32,8 @@ export default function Header() {
 					type="button"
 					onClick={logoutUsers}
 				>
-					<FiPower size={28} color="#ff4427" />
+					<FiPower size={20} color="#3A0D51" />
+					sair
 				</button>
 			</header>
 		</HeaderPage>

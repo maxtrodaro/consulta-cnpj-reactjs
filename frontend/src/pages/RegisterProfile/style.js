@@ -7,7 +7,7 @@ import iconPass from "../../assets/icon-pass.png";
 export const ProfilePage = styled.section`
 	.register-container {
 		width: 55%;
-		height: 100vh;
+		height: 90vh;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -22,6 +22,25 @@ export const ProfilePage = styled.section`
 			padding: 30px;
 			border-radius: 10px;
 			margin-right: 30px;
+			&__error {
+				display: none;
+				+ input {
+					border: 2px solid #f44336;
+				}
+			}
+			&__input {
+				width: 350px;
+				height: 60px;
+				color: #707070;
+				border: 2px solid #e0e0e0;
+				border-radius: 6px;
+				padding: 0 50px;
+				margin-top: 20px;
+				&.error {
+					border: 2px solid #f44336;
+					color: #f44336;
+				}
+			}
 			&__name {
 				&::before {
 					content: "";
@@ -63,6 +82,19 @@ export const ProfilePage = styled.section`
 				align-items: center;
 				margin-top: 20px;
 				color: #696969;
+			}
+		}
+		&__message {
+			color: #ef9a9a;
+			margin-top: 20px;
+			font-size: 24px;
+			line-height: 28px;
+			text-align: center;
+			&.e-none {
+				display: none;
+			}
+			&.e-active {
+				display: block;
 			}
 		}
 	}

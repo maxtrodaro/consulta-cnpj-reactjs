@@ -22,6 +22,25 @@ export const LoginPage = styled.section`
 			padding: 30px;
 			border-radius: 10px;
 			position: relative;
+			&__error {
+				display: none;
+				+ input {
+					border: 2px solid #f44336;
+				}
+			}
+			&__input {
+				width: 350px;
+				height: 60px;
+				color: #707070;
+				border: 2px solid #e0e0e0;
+				border-radius: 6px;
+				padding: 0 50px;
+				margin-top: 20px;
+				&.error {
+					border: 2px solid #f44336;
+					color: #f44336;
+				}
+			}
 			&__user {
 				&::before {
 					content: "";
@@ -51,6 +70,18 @@ export const LoginPage = styled.section`
 				align-items: center;
 				margin-top: 20px;
 				color: #696969;
+			}
+		}
+		&__message {
+			color: #ef9a9a;
+			margin-top: 20px;
+			font-size: 24px;
+			line-height: 28px;
+			&.e-none {
+				display: none;
+			}
+			&.e-active {
+				display: block;
 			}
 		}
 	}

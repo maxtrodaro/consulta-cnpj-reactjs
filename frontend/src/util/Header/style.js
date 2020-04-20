@@ -17,12 +17,22 @@ export const HeaderPage = styled.section`
 			p {
 				font-size: 18px;
 				margin: 30px 0 0 24px;
+				color: #fff;
 			}
 		}
 		&__logout {
-			border: 2px solid #ff4427;
+			border: none;
 			padding: 10px;
 			border-radius: 6px;
+			display: flex;
+			align-items: center;
+			font-size: 20px;
+			background: #fff;
+			color: #3a0d51;
+			line-height: 28px;
+			svg {
+				margin-right: 10px;
+			}
 		}
 	}
 `;

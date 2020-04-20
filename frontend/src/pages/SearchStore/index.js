@@ -90,8 +90,7 @@ export default function SearchStore() {
 								{filteredStore ? (
 									<StoreItem store={filteredStore} />
 								) : (
-									(console.log(stores),
-									stores.map((store) => <StoreItem store={store} />))
+									stores.map((store) => <StoreItem store={store} />)
 								)}
 							</ul>
 						</section>
