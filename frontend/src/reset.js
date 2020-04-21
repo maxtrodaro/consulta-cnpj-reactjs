@@ -17,6 +17,7 @@ export default createGlobalStyle`
 		background: #3A0D51;
 		background: -webkit-linear-gradient(to right, #3A0D51, #621D3D);
 		background: linear-gradient(to right, #3A0D51, #621D3D);
+		overflow: hidden;
 	}
 
 	input,

@@ -44,6 +44,22 @@ export const HomeButton = styled.button`
 	margin: 0;
 `;
 
+export const RegisterButton = styled.button`
+	height: 60px;
+	background: #f57c00;
+	border: 0;
+	border-radius: 6px;
+	color: #f5f5f5;
+	text-align: center;
+	text-decoration: none;
+	line-height: 60px;
+	font-weight: 600;
+	width: 200px;
+	&:not(:last-child) {
+		margin-right: 20px;
+	}
+`;
+
 export const RegisterLink = styled.a`
 	display: flex;
 	align-items: center;
