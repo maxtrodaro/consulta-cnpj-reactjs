@@ -46,11 +46,18 @@ export const RegisterPage = styled.section`
 					display: flex;
 					align-items: center;
 					flex-direction: column;
-					padding-right: 12%;
-					border-right: 1px solid #cccccc;
-					margin-right: 12%;
 					max-height: 300px;
 					position: relative;
+					width: 40%;
+					&::after {
+						content: "";
+						height: 300px;
+						max-height: 300px;
+						width: 1px;
+						background: #cccccc;
+						position: absolute;
+						right: -25%;
+					}
 					span {
 						display: none;
 						+ input {
@@ -71,7 +78,6 @@ export const RegisterPage = styled.section`
 						}
 					}
 					&__userIcon {
-						content: "";
 						background: url(${iconUser}) no-repeat;
 						position: absolute;
 						display: block;
@@ -81,7 +87,6 @@ export const RegisterPage = styled.section`
 						left: 15px;
 					}
 					&__cnpjIcon {
-						content: "";
 						background: url(${iconCnpj}) no-repeat;
 						position: absolute;
 						display: block;
@@ -91,7 +96,6 @@ export const RegisterPage = styled.section`
 						left: 15px;
 					}
 					&__codIcon {
-						content: "";
 						background: url(${iconCod}) no-repeat;
 						position: absolute;
 						display: block;
@@ -107,6 +111,7 @@ export const RegisterPage = styled.section`
 					flex-direction: column;
 					max-height: 300px;
 					position: relative;
+					width: 40%;
 					span {
 						display: none;
 						+ input {
@@ -127,7 +132,6 @@ export const RegisterPage = styled.section`
 						}
 					}
 					&__servIcon {
-						content: "";
 						background: url(${iconServer}) no-repeat;
 						position: absolute;
 						display: block;

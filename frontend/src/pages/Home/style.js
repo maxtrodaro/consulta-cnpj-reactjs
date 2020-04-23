@@ -38,7 +38,7 @@ export const HomePage = styled.section`
 			height: 200px;
 			background: #fff;
 			position: absolute;
-			top: 60%;
+			top: 62%;
 			border-radius: 90% 90% 100% 100%;
 		}
 	}

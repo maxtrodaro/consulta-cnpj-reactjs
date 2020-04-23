@@ -1,21 +1,19 @@
-import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import React from "react";
+import { useHistory } from "react-router-dom";
+import { ErrorMessage, Formik, Form, Field } from "formik";
+import * as yup from "yup";
 
 import Header from "../../util/Header/header";
-import { Button, Input } from "../../util/Style/global";
+import { RegisterButton } from "../../util/Style/global";
 import { DeletePage } from "./style";
 import api from "../../services/requestAPI";
 
 export default function DeleteStore() {
-	const [cnpj, setCnpj] = useState("");
-
 	const history = useHistory();
 
-	async function deleteStore(e) {
-		e.preventDefault();
-
+	const handleSubmit = async (values) => {
 		try {
-			await api.delete(`/store/${cnpj}`);
+			await api.delete(`/store/${values.cnpj}`);
 
 			alert("Loja deletada com sucesso!");
 
@@ -23,22 +21,41 @@ export default function DeleteStore() {
 		} catch (error) {
 			alert("Loja não encontrada, tente novamente!");
 		}
-	}
+	};
+
+	const validations = yup.object().shape({
+		cnpj: yup.string().length(14).required(),
+	});
 
 	return (
 		<DeletePage>
 			<Header />
 			<section className="delete-container">
-				<form className="delete-container__form" onSubmit={deleteStore}>
-					<Input
-						type="number"
-						placeholder="Digite o CNPJ da loja"
-						onChange={(e) => setCnpj(e.target.value)}
-					/>
-					<Button type="submit">Deletar loja</Button>
-					<Link to="/home">Voltar</Link>
-				</form>
+				<h2>Excluir loja</h2>
+				<Formik
+					initialValues={{}}
+					onSubmit={handleSubmit}
+					validationSchema={validations}
+				>
+					<Form className="delete-container__form">
+						<ErrorMessage name="cnpj" component="span" />
+						<Field
+							name="cnpj"
+							placeholder="CNPJ:"
+							type="text"
+							className="delete-container__form__cnpj"
+						></Field>
+						<p className="delete-container__form__cnpjIcon"></p>
+						<div className="delete-container__form__buttons">
+							<RegisterButton onClick={() => history.push("/home")}>
+								Voltar
+							</RegisterButton>
+							<RegisterButton type="submit">Excluir loja</RegisterButton>
+						</div>
+					</Form>
+				</Formik>
 			</section>
+			<section className="delete-style"></section>
 		</DeletePage>
 	);
 }

@@ -68,17 +68,18 @@ export const RegisterLink = styled.a`
 
 export const InputSearch = styled.input`
 	width: 180px;
-	height: 40px;
+	height: 60px;
 	color: #333333;
-	border: 2px solid #48185b;
+	border: 2px solid #e0e0e0;
 	border-radius: 6px 0 0 6px;
 	padding: 0 10px;
 `;
 
 export const ButtonSearch = styled.button`
-	height: 40px;
+	height: 60px;
 	padding: 5px;
 	border-radius: 0 6px 6px 0;
-	border: 2px solid #48185b;
+	border: 2px solid #f57c00;
+	background: #f57c00;
 	margin-top: 0;
 `;

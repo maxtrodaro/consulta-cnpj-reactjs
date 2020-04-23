@@ -65,11 +65,17 @@ export default function SearchStore() {
 							onChange={handleChangeCnpj}
 						></InputSearch>
 						<ButtonSearch onClick={handleFilter}>
-							<FiSearch color="#48185b" size={20} />
+							<FiSearch color="#FFFFFF" size={20} />
 						</ButtonSearch>
 					</div>
 				</section>
-				<div style={{ display: "flex", justifyContent: "space-between" }}>
+				<div
+					style={{
+						display: "flex",
+						justifyContent: "space-between",
+						width: "100%",
+					}}
+				>
 					<section className="search-container__content">
 						<section className="search-container__content__items">
 							<span className="search-container__content__items__cnpj">
@@ -136,6 +142,7 @@ export default function SearchStore() {
 					</section>
 				</div>
 			</section>
+			<section className="search-style"></section>
 		</SearchPage>
 	);
 }
