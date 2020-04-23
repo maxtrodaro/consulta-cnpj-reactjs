@@ -25,8 +25,38 @@ export const DeletePage = styled.section`
 				height: 35%;
 				padding: 3%;
 				top: 30%;
+				&__group {
+					position: relative;
+					width: 100%;
+				}
 				span {
-					display: none;
+					position: absolute;
+					width: auto;
+					background: #f44336;
+					color: #ffffff;
+					text-align: center;
+					border-radius: 6px;
+					height: 24px;
+					font-size: 16px;
+					left: 10%;
+					top: 5%;
+					padding: 0 5%;
+					&::after {
+						background: #f44336;
+						border-left: 2px solid #f44336;
+						border-top: 2px solid #f44336;
+						content: "";
+						height: 12px;
+						position: absolute;
+						right: 1.5rem;
+						top: 15px;
+						left: 3px;
+						-webkit-transform: rotate(45deg);
+						-ms-transform: rotate(45deg);
+						transform: rotate(45deg);
+						width: 1rem;
+						z-index: 0;
+					}
 					+ input {
 						border: 2px solid #f44336;
 					}
@@ -50,13 +80,13 @@ export const DeletePage = styled.section`
 					display: block;
 					height: 28px;
 					width: 24px;
-					top: 80px;
-					left: 60px;
+					top: 40px;
+					left: 20px;
 				}
 				&__buttons {
 					width: 100%;
 					position: absolute;
-					bottom: 3%;
+					bottom: 10%;
 					left: 0;
 					right: 0;
 					margin: 0 auto;

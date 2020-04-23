@@ -22,8 +22,37 @@ export const ProfilePage = styled.section`
 			padding: 30px;
 			border-radius: 10px;
 			margin-right: 30px;
+			&__group {
+				position: relative;
+			}
 			&__error {
-				display: none;
+				position: absolute;
+				width: auto;
+				background: #f44336;
+				color: #ffffff;
+				text-align: center;
+				border-radius: 6px;
+				height: 24px;
+				font-size: 16px;
+				left: 10%;
+				top: 5%;
+				padding: 0 5%;
+				&::after {
+					background: #f44336;
+					border-left: 2px solid #f44336;
+					border-top: 2px solid #f44336;
+					content: "";
+					height: 12px;
+					position: absolute;
+					right: 1.5rem;
+					top: 15px;
+					left: 3px;
+					-webkit-transform: rotate(45deg);
+					-ms-transform: rotate(45deg);
+					transform: rotate(45deg);
+					width: 1rem;
+					z-index: 0;
+				}
 				+ input {
 					border: 2px solid #f44336;
 				}
@@ -49,8 +78,8 @@ export const ProfilePage = styled.section`
 					display: block;
 					height: 30px;
 					width: 32px;
-					top: 63px;
-					left: 40px;
+					top: 35px;
+					left: 15px;
 				}
 			}
 			&__user {
@@ -61,8 +90,8 @@ export const ProfilePage = styled.section`
 					display: block;
 					height: 24px;
 					width: 24px;
-					top: 147px;
-					left: 45px;
+					top: 35px;
+					left: 15px;
 				}
 			}
 			&__pass {
@@ -73,8 +102,8 @@ export const ProfilePage = styled.section`
 					display: block;
 					height: 30px;
 					width: 32px;
-					top: 225px;
-					left: 45px;
+					top: 35px;
+					left: 15px;
 				}
 			}
 			&__link {

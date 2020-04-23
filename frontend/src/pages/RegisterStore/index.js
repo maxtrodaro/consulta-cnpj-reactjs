@@ -26,10 +26,20 @@ export default function RegisterStore() {
 	};
 
 	const validations = yup.object().shape({
-		name: yup.string().required(),
-		cnpj: yup.string().length(14).required(),
-		cod_emp: yup.string().length(8).required(),
-		serv_ip: yup.string().min(8).max(15).required(),
+		name: yup.string().required("Nome obrigatório"),
+		cnpj: yup
+			.string()
+			.length(14, "O CNPJ são de 14 digítos")
+			.required("CNPJ obrigatório"),
+		cod_emp: yup
+			.string()
+			.length(8, "O Código são de 8 digítos")
+			.required("Código obrigatório"),
+		serv_ip: yup
+			.string()
+			.min(8, "O Servidor é no mínimo 8 digítos")
+			.max(15, "O Servidor é no máximo 15 digítos")
+			.required("Servidor obrigatório"),
 	});
 
 	return (
@@ -47,51 +57,59 @@ export default function RegisterStore() {
 							<p className="register-container__form__title">
 								Informações da loja
 							</p>
-							<ErrorMessage name="name" component="span" />
-							<Field
-								name="name"
-								placeholder="Nome:"
-								type="text"
-								className={`register-container__form__left__name ${
-									inputError ? "error" : ""
-								}`}
-							/>
-							<p className="register-container__form__left__userIcon"></p>
-							<ErrorMessage name="cnpj" component="span" />
-							<Field
-								name="cnpj"
-								placeholder="CNPJ:"
-								type="text"
-								className={`register-container__form__left__cnpj ${
-									inputError ? "error" : ""
-								}`}
-							/>
-							<p className="register-container__form__left__cnpjIcon"></p>
-							<ErrorMessage name="cod_emp" component="span" />
-							<Field
-								name="cod_emp"
-								placeholder="Código da empresa:"
-								type="text"
-								className={`register-container__form__left__cod ${
-									inputError ? "error" : ""
-								}`}
-							/>
-							<p className="register-container__form__left__codIcon"></p>
+							<div className="register-container__form__group">
+								<ErrorMessage name="name" component="span" />
+								<Field
+									name="name"
+									placeholder="Nome:"
+									type="text"
+									className={`register-container__form__left__name ${
+										inputError ? "error" : ""
+									}`}
+								/>
+								<p className="register-container__form__left__userIcon"></p>
+							</div>
+							<div className="register-container__form__group">
+								<ErrorMessage name="cnpj" component="span" />
+								<Field
+									name="cnpj"
+									placeholder="CNPJ:"
+									type="text"
+									className={`register-container__form__left__cnpj ${
+										inputError ? "error" : ""
+									}`}
+								/>
+								<p className="register-container__form__left__cnpjIcon"></p>
+							</div>
+							<div className="register-container__form__group">
+								<ErrorMessage name="cod_emp" component="span" />
+								<Field
+									name="cod_emp"
+									placeholder="Código da empresa:"
+									type="text"
+									className={`register-container__form__left__cod ${
+										inputError ? "error" : ""
+									}`}
+								/>
+								<p className="register-container__form__left__codIcon"></p>
+							</div>
 						</div>
 						<div className="register-container__form__right">
 							<p className="register-container__form__title">
 								Ambiente da loja
 							</p>
-							<ErrorMessage name="serv_ip" component="span" />
-							<Field
-								name="serv_ip"
-								placeholder="Endereço do servidor:"
-								type="text"
-								className={`register-container__form__right__serv ${
-									inputError ? "error" : ""
-								}`}
-							/>
-							<p className="register-container__form__right__servIcon"></p>
+							<div className="register-container__form__group">
+								<ErrorMessage name="serv_ip" component="span" />
+								<Field
+									name="serv_ip"
+									placeholder="Endereço do servidor:"
+									type="text"
+									className={`register-container__form__right__serv ${
+										inputError ? "error" : ""
+									}`}
+								/>
+								<p className="register-container__form__right__servIcon"></p>
+							</div>
 						</div>
 						<div className="register-container__form__buttons">
 							<RegisterButton onClick={() => history.push("/home")}>

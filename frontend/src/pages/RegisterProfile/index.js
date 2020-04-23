@@ -26,9 +26,15 @@ export default function Register() {
 	};
 
 	const validations = yup.object().shape({
-		name: yup.string().min(8).required(),
-		username: yup.string().required(),
-		password: yup.string().min(8).required(),
+		name: yup
+			.string()
+			.min(8, "Nome mínimo de 8 digítos")
+			.required("Nome obrigatório"),
+		username: yup.string().required("Usuário obrigatório"),
+		password: yup
+			.string()
+			.min(8, "Senha mínima de 8 digítos")
+			.required("Senha obrigatória"),
 	});
 
 	return (
@@ -40,48 +46,54 @@ export default function Register() {
 					validationSchema={validations}
 				>
 					<Form className="register-container__form">
-						<ErrorMessage
-							name="name"
-							component="span"
-							className="register-container__form__error"
-						/>
-						<Field
-							name="name"
-							placeholder="Digite seu nome completo"
-							type="text"
-							className={`register-container__form__input ${
-								inputError ? "error" : ""
-							}`}
-						/>
-						<p className="register-container__form__name"></p>
-						<ErrorMessage
-							name="username"
-							component="span"
-							className="register-container__form__error"
-						/>
-						<Field
-							name="username"
-							placeholder="Digite seu usuário"
-							type="text"
-							className={`register-container__form__input ${
-								inputError ? "error" : ""
-							}`}
-						/>
-						<p className="register-container__form__user"></p>
-						<ErrorMessage
-							name="password"
-							component="span"
-							className="register-container__form__error"
-						/>
-						<Field
-							name="password"
-							placeholder="Digite sua senha"
-							type="password"
-							className={`register-container__form__input ${
-								inputError ? "error" : ""
-							}`}
-						/>
-						<p className="register-container__form__pass"></p>
+						<div className="register-container__form__group">
+							<ErrorMessage
+								name="name"
+								component="span"
+								className="register-container__form__error"
+							/>
+							<Field
+								name="name"
+								placeholder="Digite seu nome completo"
+								type="text"
+								className={`register-container__form__input ${
+									inputError ? "error" : ""
+								}`}
+							/>
+							<p className="register-container__form__name"></p>
+						</div>
+						<div className="register-container__form__group">
+							<ErrorMessage
+								name="username"
+								component="span"
+								className="register-container__form__error"
+							/>
+							<Field
+								name="username"
+								placeholder="Digite seu usuário"
+								type="text"
+								className={`register-container__form__input ${
+									inputError ? "error" : ""
+								}`}
+							/>
+							<p className="register-container__form__user"></p>
+						</div>
+						<div className="register-container__form__group">
+							<ErrorMessage
+								name="password"
+								component="span"
+								className="register-container__form__error"
+							/>
+							<Field
+								name="password"
+								placeholder="Digite sua senha"
+								type="password"
+								className={`register-container__form__input ${
+									inputError ? "error" : ""
+								}`}
+							/>
+							<p className="register-container__form__pass"></p>
+						</div>
 						<Button type="submit" onClick={() => setInputError(!inputError)}>
 							Finalizar Cadastro
 						</Button>

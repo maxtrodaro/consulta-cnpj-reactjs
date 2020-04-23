@@ -43,8 +43,11 @@ export default function Login() {
 	};
 
 	const validations = yup.object().shape({
-		username: yup.string().required("Required"),
-		password: yup.string().min(3).required("Required"),
+		username: yup.string().required("Usuário obrigatório"),
+		password: yup
+			.string()
+			.min(8, "Senha mínima de 8 digítos")
+			.required("Senha obrigatória"),
 	});
 
 	return (
@@ -57,32 +60,36 @@ export default function Login() {
 					validationSchema={validations}
 				>
 					<Form className="login-container__form">
-						<ErrorMessage
-							component="span"
-							name="username"
-							className="login-container__form__error"
-						/>
-						<Field
-							name="username"
-							placeholder="Usuário:"
-							type="text"
-							className={`login-container__form__input ${
-								inputError ? "error" : ""
-							}`}
-						/>
-						<p className="login-container__form__user"></p>
-						<ErrorMessage
-							component="span"
-							name="password"
-							className="login-container__form__error"
-						/>
-						<Field
-							name="password"
-							placeholder="Senha:"
-							type="password"
-							className="login-container__form__input"
-						/>
-						<p className="login-container__form__password"></p>
+						<div className="login-container__form__group">
+							<ErrorMessage
+								component="span"
+								name="username"
+								className="login-container__form__error"
+							/>
+							<Field
+								name="username"
+								placeholder="Usuário:"
+								type="text"
+								className={`login-container__form__input ${
+									inputError ? "error" : ""
+								}`}
+							/>
+							<p className="login-container__form__user"></p>
+						</div>
+						<div className="login-container__form__group">
+							<ErrorMessage
+								component="span"
+								name="password"
+								className="login-container__form__error"
+							/>
+							<Field
+								name="password"
+								placeholder="Senha:"
+								type="password"
+								className="login-container__form__input"
+							/>
+							<p className="login-container__form__password"></p>
+						</div>
 						<Button type="submit" onClick={() => setInputError(!inputError)}>
 							Entrar
 						</Button>

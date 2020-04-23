@@ -24,7 +24,10 @@ export default function DeleteStore() {
 	};
 
 	const validations = yup.object().shape({
-		cnpj: yup.string().length(14).required(),
+		cnpj: yup
+			.string()
+			.length(14, "O CNPJ são de 14 digítos")
+			.required("CNPJ obrigatório"),
 	});
 
 	return (
@@ -38,14 +41,16 @@ export default function DeleteStore() {
 					validationSchema={validations}
 				>
 					<Form className="delete-container__form">
-						<ErrorMessage name="cnpj" component="span" />
-						<Field
-							name="cnpj"
-							placeholder="CNPJ:"
-							type="text"
-							className="delete-container__form__cnpj"
-						></Field>
-						<p className="delete-container__form__cnpjIcon"></p>
+						<div className="delete-container__form__group">
+							<ErrorMessage name="cnpj" component="span" />
+							<Field
+								name="cnpj"
+								placeholder="CNPJ:"
+								type="text"
+								className="delete-container__form__cnpj"
+							></Field>
+							<p className="delete-container__form__cnpjIcon"></p>
+						</div>
 						<div className="delete-container__form__buttons">
 							<RegisterButton onClick={() => history.push("/home")}>
 								Voltar

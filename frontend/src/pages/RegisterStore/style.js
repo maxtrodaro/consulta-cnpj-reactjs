@@ -28,6 +28,9 @@ export const RegisterPage = styled.section`
 				height: 70%;
 				padding: 3%;
 				top: 26%;
+				&__group {
+					position: relative;
+				}
 				&__title {
 					text-transform: uppercase;
 					width: 100%;
@@ -59,7 +62,33 @@ export const RegisterPage = styled.section`
 						right: -25%;
 					}
 					span {
-						display: none;
+						position: absolute;
+						width: auto;
+						background: #f44336;
+						color: #ffffff;
+						text-align: center;
+						border-radius: 6px;
+						height: 24px;
+						font-size: 16px;
+						left: 10%;
+						top: 5%;
+						padding: 0 5%;
+						&::after {
+							background: #f44336;
+							border-left: 2px solid #f44336;
+							border-top: 2px solid #f44336;
+							content: "";
+							height: 12px;
+							position: absolute;
+							right: 1.5rem;
+							top: 15px;
+							left: 3px;
+							-webkit-transform: rotate(45deg);
+							-ms-transform: rotate(45deg);
+							transform: rotate(45deg);
+							width: 1rem;
+							z-index: 0;
+						}
 						+ input {
 							border: 2px solid #f44336;
 						}
@@ -83,7 +112,7 @@ export const RegisterPage = styled.section`
 						display: block;
 						height: 28px;
 						width: 24px;
-						top: 100px;
+						top: 35px;
 						left: 15px;
 					}
 					&__cnpjIcon {
@@ -92,7 +121,7 @@ export const RegisterPage = styled.section`
 						display: block;
 						height: 28px;
 						width: 24px;
-						top: 180px;
+						top: 40px;
 						left: 15px;
 					}
 					&__codIcon {
@@ -101,7 +130,7 @@ export const RegisterPage = styled.section`
 						display: block;
 						height: 28px;
 						width: 24px;
-						top: 260px;
+						top: 40px;
 						left: 15px;
 					}
 				}
@@ -113,7 +142,33 @@ export const RegisterPage = styled.section`
 					position: relative;
 					width: 40%;
 					span {
-						display: none;
+						position: absolute;
+						width: auto;
+						background: #f44336;
+						color: #ffffff;
+						text-align: center;
+						border-radius: 6px;
+						height: 24px;
+						font-size: 16px;
+						left: 10%;
+						top: 5%;
+						padding: 0 5%;
+						&::after {
+							background: #f44336;
+							border-left: 2px solid #f44336;
+							border-top: 2px solid #f44336;
+							content: "";
+							height: 12px;
+							position: absolute;
+							right: 1.5rem;
+							top: 15px;
+							left: 3px;
+							-webkit-transform: rotate(45deg);
+							-ms-transform: rotate(45deg);
+							transform: rotate(45deg);
+							width: 1rem;
+							z-index: 0;
+						}
 						+ input {
 							border: 2px solid #f44336;
 						}
@@ -137,7 +192,7 @@ export const RegisterPage = styled.section`
 						display: block;
 						height: 28px;
 						width: 24px;
-						top: 100px;
+						top: 40px;
 						left: 15px;
 					}
 				}

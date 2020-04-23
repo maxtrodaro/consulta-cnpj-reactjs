@@ -196,7 +196,7 @@ describe("Tests", () => {
 		expect(response.status).toBe(400);
 	});
 
-	test("should be able to edit a Store", async () => {
+	test("Should be able to edit a Store", async () => {
 		await request(app).post("/store").send({
 			name: "Plakkar",
 			cnpj: "53091821000147",
@@ -212,5 +212,56 @@ describe("Tests", () => {
 		});
 
 		expect(response.status).toBe(204);
+	});
+
+	/**
+	 * Server Tests
+	 */
+
+	test("Should be able to create a new Server", async () => {
+		const response = await request(app).post("/server").send({
+			name: "Via Veneto",
+			ip: "10.1.3.3",
+		});
+
+		expect(response.status).toBe(200);
+	});
+
+	test("When you try create a new Server without name on body request", async () => {
+		const response = await request(app).post("/server").send({
+			ip: "10.1.3.3",
+		});
+
+		expect(response.body.message).toBe('"name" is required');
+	});
+
+	test("When you try create a new Server without ip on body request", async () => {
+		const response = await request(app).post("/server").send({
+			name: "Via Veneto",
+		});
+
+		expect(response.body.message).toBe('"ip" is required');
+	});
+
+	test("Should be able to delete a Server", async () => {
+		await request(app).post("/server").send({
+			name: "Via Veneto",
+			ip: "10.1.3.3",
+		});
+
+		const response = await request(app).delete("/server/Via Veneto");
+
+		expect(response.status).toBe(204);
+	});
+
+	test("Should not be able to delete a Server", async () => {
+		await request(app).post("/server").send({
+			name: "Via Veneto",
+			ip: "10.1.3.3",
+		});
+
+		const response = await request(app).delete("/profile/:id");
+
+		expect(response.status).toBe(400);
 	});
 });
