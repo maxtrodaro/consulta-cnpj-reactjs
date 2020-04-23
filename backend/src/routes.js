@@ -6,6 +6,7 @@ const searchController = require("./controllers/SearchController");
 const profileController = require("./controllers/ProfileController");
 const loginController = require("./controllers/LoginController");
 const tokenController = require("./controllers/TokenController");
+const serverController = require("./controllers/ServerController");
 
 const authMiddleware = require("./middlewares/authorization");
 
@@ -68,7 +69,7 @@ routes.post(
 		[Segments.BODY]: Joi.object().keys({
 			name: Joi.string().required().min(4),
 			username: Joi.string().required().min(4),
-			password: Joi.string().required(),
+			password: Joi.string().required().min(3),
 		}),
 	}),
 	profileController.postProfile
@@ -111,6 +112,27 @@ routes.post(
 		}),
 	}),
 	loginController.jwtProfile
+);
+
+routes.get("/server", serverController.getServer);
+routes.post(
+	"/server",
+	celebrate({
+		[Segments.BODY]: Joi.object().keys({
+			name: Joi.string().required().min(3),
+			ip: Joi.string().required().min(8).max(15),
+		}),
+	}),
+	serverController.createServer
+);
+routes.delete(
+	"/server/:name",
+	celebrate({
+		[Segments.PARAMS]: Joi.object().keys({
+			name: Joi.string().required().min(3),
+		}),
+	}),
+	serverController.deleteServer
 );
 
 routes.use(authMiddleware);

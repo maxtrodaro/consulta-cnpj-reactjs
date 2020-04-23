@@ -6,6 +6,7 @@ import { SearchPage } from "./style";
 import { InputSearch, ButtonSearch } from "../../util/Style/global";
 import api from "../../services/requestAPI";
 import StoreItem from "./StoreItem";
+import ServerItem from "./ServerItem";
 
 async function filterByCnpj(cnpj) {
 	try {
@@ -24,6 +25,7 @@ async function filterByCnpj(cnpj) {
 export default function SearchStore() {
 	const [stores, setStores] = useState([]);
 	const [cnpj, setCnpj] = useState([]);
+	const [server, setServer] = useState([]);
 	const [filteredStore, setFilteredStore] = useState(null);
 
 	useEffect(() => {
@@ -34,6 +36,16 @@ export default function SearchStore() {
 		};
 
 		loadStores();
+	}, []);
+
+	useEffect(() => {
+		const loadServer = async () => {
+			const response = await api.get("server");
+
+			setServer(response.data);
+		};
+
+		loadServer();
 	}, []);
 
 	function handleFilter(event) {
@@ -115,28 +127,9 @@ export default function SearchStore() {
 						</section>
 						<section className="search-container__servs__bottom">
 							<ul className="search-container__servs__bottom__list">
-								<li className="search-container__servs__bottom__list__item">
-									<p className="search-container__servs__bottom__list__item__name">
-										Via Veneto (Brooksfield / Harrys)
-									</p>
-									<p className="search-container__servs__bottom__list__item__serv">
-										10.1.230.4
-									</p>
-									<p className="search-container__servs__bottom__list__item__qtd">
-										110
-									</p>
-								</li>
-								<li className="search-container__servs__bottom__list__item">
-									<p className="search-container__servs__bottom__list__item__name">
-										Via Veneto (Brooksfield / Harrys)
-									</p>
-									<p className="search-container__servs__bottom__list__item__serv">
-										10.1.230.4
-									</p>
-									<p className="search-container__servs__bottom__list__item__qtd">
-										110
-									</p>
-								</li>
+								{server.map((server) => (
+									<ServerItem server={server} />
+								))}
 							</ul>
 						</section>
 					</section>

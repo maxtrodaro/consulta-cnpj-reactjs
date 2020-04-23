@@ -19,35 +19,48 @@ describe("Tests", () => {
 	 * Profile Tests
 	 */
 
-	test("should be able to create a new Profile", async () => {
+	test("Should be able to create a new Profile", async () => {
 		const response = await request(app).post("/profile").send({
 			name: "Eduardo",
 			username: "egodoy",
+			password: "12345678",
 		});
 
-		expect(response.body).toBe("Usuário Cadastrado");
+		expect(response.status).toBe(200);
 	});
 
-	test("when you try create a new Profile without name on body request", async () => {
+	test("When you try create a new Profile without name on body request", async () => {
 		const response = await request(app).post("/profile").send({
 			username: "egodoy",
+			password: "12345678",
 		});
 
 		expect(response.body.message).toBe('"name" is required');
 	});
 
-	test("when you try create a new Profile without username on body request", async () => {
+	test("When you try create a new Profile without username on body request", async () => {
 		const response = await request(app).post("/profile").send({
 			name: "Eduardo",
+			password: "12345678",
 		});
 
 		expect(response.body.message).toBe('"username" is required');
 	});
 
-	test("should be able to list a Profile", async () => {
+	test("When you try create a new Profile without password on body request", async () => {
+		const response = await request(app).post("/profile").send({
+			name: "Eduardo",
+			username: "egodoy",
+		});
+
+		expect(response.body.message).toBe('"password" is required');
+	});
+
+	test("Should be able to list a Profile", async () => {
 		await request(app).post("/profile").send({
 			name: "Eduardo",
 			username: "egodoy",
+			password: "12345678",
 		});
 
 		const response = await request(app).get("/profile");
@@ -56,26 +69,29 @@ describe("Tests", () => {
 			{
 				id: expect.any(Number),
 				name: expect.any(String),
+				password: expect.any(String),
 				username: expect.any(String),
 			},
 		]);
 	});
 
-	test("should be able to delete a Profile", async () => {
+	test("Should be able to delete a Profile", async () => {
 		await request(app).post("/profile").send({
 			name: "Eduardo",
 			username: "egodoy",
+			password: "12345678",
 		});
 
 		const response = await request(app).delete("/profile/egodoy");
 
-		expect(response.body).toEqual({});
+		expect(response.status).toBe(204);
 	});
 
-	test("should not be able to delete a Profile", async () => {
+	test("Should not be able to delete a Profile", async () => {
 		await request(app).post("/profile").send({
 			name: "Eduardo",
 			username: "egodoy",
+			password: "12345678",
 		});
 
 		const response = await request(app).delete("/profile/:id");
@@ -83,10 +99,11 @@ describe("Tests", () => {
 		expect(response.status).toBe(400);
 	});
 
-	test("when you try edit a Profile with username on param", async () => {
+	test("When you try edit a Profile with username on param", async () => {
 		await request(app).post("/profile").send({
 			name: "Eduardo",
 			username: "egodoy",
+			password: "12345678",
 		});
 
 		const response = await request(app).put("/profile/egodoy").send({
@@ -101,7 +118,7 @@ describe("Tests", () => {
 	 * Store Tests
 	 */
 
-	test("should be able to create a new Store", async () => {
+	test("Should be able to create a new Store", async () => {
 		const response = await request(app).post("/store").send({
 			name: "Plakkar",
 			cnpj: "53091821000147",
@@ -109,10 +126,10 @@ describe("Tests", () => {
 			serv_ip: "10.1.230.4",
 		});
 
-		expect(response.body).toBe("Loja Cadastrada!");
+		expect(response.status).toBe(200);
 	});
 
-	test("when you try create a new Store without name on body request", async () => {
+	test("When you try create a new Store without name on body request", async () => {
 		const response = await request(app).post("/store").send({
 			cnpj: "53091821000147",
 			cod_emp: "PLAK0001",
@@ -122,7 +139,7 @@ describe("Tests", () => {
 		expect(response.body.message).toBe('"name" is required');
 	});
 
-	test("when you try create a new Store without cnpj on body request", async () => {
+	test("When you try create a new Store without cnpj on body request", async () => {
 		const response = await request(app).post("/store").send({
 			name: "Plakkar",
 			cod_emp: "PLAK0001",
@@ -132,7 +149,7 @@ describe("Tests", () => {
 		expect(response.body.message).toBe('"cnpj" is required');
 	});
 
-	test("should be able to list a Store", async () => {
+	test("Should be able to list a Store", async () => {
 		await request(app).post("/store").send({
 			name: "Plakkar",
 			cnpj: "53091821000147",
@@ -153,7 +170,7 @@ describe("Tests", () => {
 		]);
 	});
 
-	test("should be able to delete a Store", async () => {
+	test("Should be able to delete a Store", async () => {
 		await request(app).post("/store").send({
 			name: "Plakkar",
 			cnpj: "53091821000147",
@@ -163,10 +180,10 @@ describe("Tests", () => {
 
 		const response = await request(app).delete("/store/53091821000147");
 
-		expect(response.body).toEqual({});
+		expect(response.status).toBe(204);
 	});
 
-	test("should not be able to delete a Store", async () => {
+	test("Should not be able to delete a Store", async () => {
 		await request(app).post("/store").send({
 			name: "Plakkar",
 			cnpj: "53091821000147",
@@ -180,7 +197,7 @@ describe("Tests", () => {
 	});
 
 	test("should be able to edit a Store", async () => {
-		const test = await request(app).post("/store").send({
+		await request(app).post("/store").send({
 			name: "Plakkar",
 			cnpj: "53091821000147",
 			cod_emp: "PLAK0001",
