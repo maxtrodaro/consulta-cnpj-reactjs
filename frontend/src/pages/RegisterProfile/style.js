@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
+import variables from "../../util/Style/variables";
 import iconName from "../../assets/icon-name.png";
 import iconUser from "../../assets/icon-user.png";
 import iconPass from "../../assets/icon-pass.png";
+import iconPerm from "../../assets/icon-perm.svg";
 
 export const ProfilePage = styled.section`
 	.register-container {
@@ -18,7 +20,7 @@ export const ProfilePage = styled.section`
 			justify-content: center;
 			flex-direction: column;
 			position: relative;
-			background: #f5f5f5;
+			background: ${variables.colors.lightGray};
 			padding: 30px;
 			border-radius: 10px;
 			margin-right: 30px;
@@ -28,8 +30,8 @@ export const ProfilePage = styled.section`
 			&__error {
 				position: absolute;
 				width: auto;
-				background: #f44336;
-				color: #ffffff;
+				background: ${variables.colors.red};
+				color: ${variables.colors.white};
 				text-align: center;
 				border-radius: 6px;
 				height: 24px;
@@ -37,10 +39,11 @@ export const ProfilePage = styled.section`
 				left: 10%;
 				top: 5%;
 				padding: 0 5%;
+				z-index: 1;
 				&::after {
-					background: #f44336;
-					border-left: 2px solid #f44336;
-					border-top: 2px solid #f44336;
+					background: ${variables.colors.red};
+					border-left: 2px solid ${variables.colors.red};
+					border-top: 2px solid ${variables.colors.red};
 					content: "";
 					height: 12px;
 					position: absolute;
@@ -54,20 +57,33 @@ export const ProfilePage = styled.section`
 					z-index: 0;
 				}
 				+ input {
-					border: 2px solid #f44336;
+					border: 2px solid ${variables.colors.red};
 				}
+			}
+			.MuiInput-underline:after {
+				position: relative;
 			}
 			&__input {
 				width: 350px;
 				height: 60px;
-				color: #707070;
-				border: 2px solid #e0e0e0;
+				color: ${variables.colors.gray};
+				border: 2px solid ${variables.colors.borderGray};
 				border-radius: 6px;
-				padding: 0 50px;
+				padding: 0 0 0 50px;
 				margin-top: 20px;
+				background: ${variables.colors.white};
+				&::before {
+					content: "";
+					position: relative;
+				}
 				&.error {
-					border: 2px solid #f44336;
-					color: #f44336;
+					border: 2px solid ${variables.colors.red};
+					color: ${variables.colors.red};
+				}
+				.MuiSelect-select {
+					&:focus {
+						background: ${variables.colors.white};
+					}
 				}
 			}
 			&__name {
@@ -106,11 +122,23 @@ export const ProfilePage = styled.section`
 					left: 15px;
 				}
 			}
+			&__perm {
+				&::before {
+					content: "";
+					background: url(${iconPerm}) no-repeat;
+					position: absolute;
+					display: block;
+					height: 30px;
+					width: 32px;
+					top: 40px;
+					left: 15px;
+				}
+			}
 			&__link {
 				display: flex;
 				align-items: center;
 				margin-top: 20px;
-				color: #696969;
+				color: ${variables.colors.gray};
 			}
 		}
 		&__message {

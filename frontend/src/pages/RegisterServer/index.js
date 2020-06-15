@@ -9,8 +9,8 @@ import Header from "../../components/Header/header";
 import { RegisterButton } from "../../util/Style/global";
 import { DeletePage } from "./style";
 import api from "../../services/requestAPI";
-import RegexCnpj from "../../util/Regex/regexCnpj";
 import ResetInitialValues from "../../util/ResetsFormik/initialValues";
+import RegexServerIp from "../../util/Regex/regexServerIp";
 
 toast.configure();
 
@@ -18,18 +18,11 @@ export default function DeleteStore() {
 	const history = useHistory();
 
 	const handleSubmit = async (values) => {
-		const newCnpj = RegexCnpj(values.cnpj);
+		if (RegexServerIp(values.ip)) {
+			try {
+				await api.post("/server", values);
 
-		try {
-			if (newCnpj.length < 14) {
-				toast.error("CNPJ Inválido", {
-					position: toast.POSITION.TOP_CENTER,
-					autoClose: 3000,
-				});
-			} else {
-				await api.delete(`/store/${values.cnpj}`);
-
-				toast.success("Loja deletada com sucesso!", {
+				toast.success("Servidor cadastrado com sucesso!", {
 					position: toast.POSITION.TOP_CENTER,
 					autoClose: 3000,
 				});
@@ -43,9 +36,14 @@ export default function DeleteStore() {
 				} else if (sessionStorage.getItem("permission") === "cloud") {
 					history.push("/homecloud");
 				}
+			} catch (erro) {
+				toast.error(erro.response.data.error, {
+					position: toast.POSITION.TOP_CENTER,
+					autoClose: 3000,
+				});
 			}
-		} catch (erro) {
-			toast.error(erro.response.data.error, {
+		} else {
+			toast.error("Digite um IP de servidor válido", {
 				position: toast.POSITION.TOP_CENTER,
 				autoClose: 3000,
 			});
@@ -53,17 +51,19 @@ export default function DeleteStore() {
 	};
 
 	const validations = yup.object().shape({
-		cnpj: yup
+		name: yup.string().required("Nome obrigatório"),
+		ip: yup
 			.string()
-			.length(14, "O CNPJ são de 14 digítos")
-			.required("CNPJ obrigatório"),
+			.min(8, "O Servidor é no mínimo 8 digítos")
+			.max(15, "O Servidor é no máximo 15 digítos")
+			.required("Servidor obrigatório"),
 	});
 
 	return (
 		<DeletePage>
 			<Header />
 			<section className="delete-container">
-				<h2>Excluir loja</h2>
+				<h2>Cadastrar servidor</h2>
 				<Formik
 					initialValues={ResetInitialValues}
 					onSubmit={handleSubmit}
@@ -75,18 +75,28 @@ export default function DeleteStore() {
 						return (
 							<Form className="delete-container__form">
 								<div className="delete-container__form__group">
-									<ErrorMessage name="cnpj" component="span" />
+									<ErrorMessage name="name" component="span" />
 									<Field
-										name="cnpj"
-										placeholder="CNPJ:"
+										name="name"
+										placeholder="Nome Servidor:"
 										type="text"
-										className="delete-container__form__cnpj"
+										className="delete-container__form__name"
 									></Field>
-									<p className="delete-container__form__cnpjIcon"></p>
+									<p className="delete-container__form__nameIcon"></p>
+								</div>
+								<div className="delete-container__form__group">
+									<ErrorMessage name="server" component="span" />
+									<Field
+										name="ip"
+										placeholder="Ip do Servidor:"
+										type="text"
+										className="delete-container__form__server"
+									></Field>
+									<p className="delete-container__form__serverIcon"></p>
 								</div>
 								<div className="delete-container__form__buttons">
 									<RegisterButton type="submit" disabled={submitIsValid}>
-										Excluir loja
+										Cadastrar servidor
 									</RegisterButton>
 									<RegisterButton
 										onClick={() => {

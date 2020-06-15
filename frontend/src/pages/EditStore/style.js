@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import variables from "../../util/Style/variables";
 import iconUser from "../../assets/icon-user.png";
 import iconCnpj from "../../assets/icon-cnpj.svg";
 import iconCod from "../../assets/icon-cod.svg";
@@ -15,7 +16,7 @@ export const EditPage = styled.section`
 			height: 20vh;
 			h2 {
 				text-transform: uppercase;
-				color: #fff;
+				color: ${variables.colors.white};
 				font-size: 28px;
 			}
 			&__form {
@@ -23,21 +24,29 @@ export const EditPage = styled.section`
 				justify-content: space-between;
 				position: absolute;
 				width: 70%;
-				background: #f5f5f5;
+				background: ${variables.colors.lightGray};
 				border-radius: 10px;
 				height: 70%;
 				padding: 3%;
-				top: 26%;
+				top: 28%;
 				&__group {
 					position: relative;
 				}
 				&__title {
 					text-transform: uppercase;
 					width: 100%;
-					background: #3a0d51;
-					background: -webkit-linear-gradient(to right, #3a0d51, #621d3d);
-					background: linear-gradient(to right, #3a0d51, #621d3d);
-					color: #fff;
+					background: ${variables.colors.primaryColor};
+					background: -webkit-linear-gradient(
+						to right,
+						${variables.colors.primaryColor},
+						${variables.colors.linearColor}
+					);
+					background: linear-gradient(
+						to right,
+						${variables.colors.primaryColor},
+						${variables.colors.linearColor}
+					);
+					color: ${variables.colors.white};
 					text-align: center;
 					height: 60px;
 					line-height: 60px;
@@ -57,15 +66,15 @@ export const EditPage = styled.section`
 						height: 300px;
 						max-height: 300px;
 						width: 1px;
-						background: #cccccc;
+						background: ${variables.colors.mediumGray};
 						position: absolute;
 						right: -25%;
 					}
 					span {
 						position: absolute;
 						width: auto;
-						background: #f44336;
-						color: #ffffff;
+						background: ${variables.colors.red};
+						color: ${variables.colors.white};
 						text-align: center;
 						border-radius: 6px;
 						height: 24px;
@@ -74,9 +83,9 @@ export const EditPage = styled.section`
 						top: 5%;
 						padding: 0 5%;
 						&::after {
-							background: #f44336;
-							border-left: 2px solid #f44336;
-							border-top: 2px solid #f44336;
+							background: ${variables.colors.red};
+							border-left: 2px solid ${variables.colors.red};
+							border-top: 2px solid ${variables.colors.red};
 							content: "";
 							height: 12px;
 							position: absolute;
@@ -90,20 +99,20 @@ export const EditPage = styled.section`
 							z-index: 0;
 						}
 						+ input {
-							border: 2px solid #f44336;
+							border: 2px solid ${variables.colors.red};
 						}
 					}
 					input {
 						width: 350px;
 						height: 60px;
-						color: #707070;
-						border: 2px solid #e0e0e0;
+						color: ${variables.colors.gray};
+						border: 2px solid ${variables.colors.borderGray};
 						border-radius: 6px;
 						padding: 0 50px;
 						margin-top: 20px;
 						&.error {
-							border: 2px solid #f44336;
-							color: #f44336;
+							border: 2px solid ${variables.colors.red};
+							color: ${variables.colors.red};
 						}
 					}
 					&__userIcon {
@@ -144,8 +153,8 @@ export const EditPage = styled.section`
 					span {
 						position: absolute;
 						width: auto;
-						background: #f44336;
-						color: #ffffff;
+						background: ${variables.colors.red};
+						color: ${variables.colors.white};
 						text-align: center;
 						border-radius: 6px;
 						height: 24px;
@@ -154,9 +163,9 @@ export const EditPage = styled.section`
 						top: 5%;
 						padding: 0 5%;
 						&::after {
-							background: #f44336;
-							border-left: 2px solid #f44336;
-							border-top: 2px solid #f44336;
+							background: ${variables.colors.red};
+							border-left: 2px solid ${variables.colors.red};
+							border-top: 2px solid ${variables.colors.red};
 							content: "";
 							height: 12px;
 							position: absolute;
@@ -170,20 +179,20 @@ export const EditPage = styled.section`
 							z-index: 0;
 						}
 						+ input {
-							border: 2px solid #f44336;
+							border: 2px solid ${variables.colors.red};
 						}
 					}
 					input {
 						width: 350px;
 						height: 60px;
-						color: #707070;
-						border: 2px solid #e0e0e0;
+						color: ${variables.colors.gray};
+						border: 2px solid ${variables.colors.borderGray};
 						border-radius: 6px;
 						padding: 0 50px;
 						margin-top: 20px;
 						&.error {
-							border: 2px solid #f44336;
-							color: #f44336;
+							border: 2px solid ${variables.colors.red};
+							color: ${variables.colors.red};
 						}
 					}
 					&__servIcon {
@@ -203,14 +212,16 @@ export const EditPage = styled.section`
 					left: 0;
 					right: 0;
 					margin: 0 auto;
-					text-align: center;
+					display: flex;
+					justify-content: center;
+					flex-direction: row-reverse;
 				}
 			}
 		}
 		&-style {
 			height: 70vh;
 			width: 100%;
-			background: #fafafa;
+			background: ${variables.colors.backgroundWhite};
 		}
 	}
 `;

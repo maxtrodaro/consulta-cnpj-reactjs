@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { FiPower } from "react-icons/fi";
 
 import { HeaderPage } from "./style";
@@ -16,13 +16,25 @@ export default function Header() {
 		history.push("/");
 	}
 
+	function homeUsers() {
+		if (sessionStorage.getItem("permission") === "project") {
+			history.push("/homeproject");
+		} else if (sessionStorage.getItem("permission") === "master") {
+			history.push("/homemaster");
+		} else if (sessionStorage.getItem("permission") === "search") {
+			history.push("/homesearch");
+		} else if (sessionStorage.getItem("permission") === "cloud") {
+			history.push("/homecloud");
+		}
+	}
+
 	return (
 		<HeaderPage>
 			<header className="header-container">
 				<div className="header-container__left">
-					<Link to="/home">
+					<button onClick={homeUsers}>
 						<img src={logoLinx} alt="Linx" title="Linx" />
-					</Link>
+					</button>
 					<p className="header-container__name">
 						Olá, <strong>{userName}</strong>
 					</p>

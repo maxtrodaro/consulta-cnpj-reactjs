@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+import variables from "../../util/Style/variables";
 import iconUser from "../../assets/icon-user.png";
 import iconPass from "../../assets/icon-pass.png";
 
@@ -18,7 +19,7 @@ export const LoginPage = styled.section`
 			margin: 0 auto;
 			width: auto;
 			margin-top: 50px;
-			background: #f5f5f5;
+			background: ${variables.colors.lightGray};
 			padding: 30px;
 			border-radius: 10px;
 			position: relative;
@@ -28,8 +29,8 @@ export const LoginPage = styled.section`
 			&__error {
 				position: absolute;
 				width: auto;
-				background: #f44336;
-				color: #ffffff;
+				background: ${variables.colors.red};
+				color: ${variables.colors.white};
 				text-align: center;
 				border-radius: 6px;
 				height: 24px;
@@ -38,9 +39,9 @@ export const LoginPage = styled.section`
 				top: 5%;
 				padding: 0 5%;
 				&::after {
-					background: #f44336;
-					border-left: 2px solid #f44336;
-					border-top: 2px solid #f44336;
+					background: ${variables.colors.red};
+					border-left: 2px solid ${variables.colors.red};
+					border-top: 2px solid ${variables.colors.red};
 					content: "";
 					height: 12px;
 					position: absolute;
@@ -54,20 +55,20 @@ export const LoginPage = styled.section`
 					z-index: 0;
 				}
 				+ input {
-					border: 2px solid #f44336;
+					border: 2px solid ${variables.colors.red};
 				}
 			}
 			&__input {
 				width: 350px;
 				height: 60px;
-				color: #707070;
-				border: 2px solid #e0e0e0;
+				color: ${variables.colors.gray};
+				border: 2px solid ${variables.colors.borderGray};
 				border-radius: 6px;
 				padding: 0 50px;
 				margin-top: 20px;
 				&.error {
-					border: 2px solid #f44336;
-					color: #f44336;
+					border: 2px solid ${variables.colors.red};
+					color: ${variables.colors.red};
 				}
 			}
 			&__user {
@@ -98,7 +99,7 @@ export const LoginPage = styled.section`
 				display: flex;
 				align-items: center;
 				margin-top: 20px;
-				color: #696969;
+				color: ${variables.colors.gray};
 			}
 		}
 		&__message {

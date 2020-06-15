@@ -1,27 +1,57 @@
-import React, { useState } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import { ErrorMessage, Formik, Form, Field } from "formik";
 import * as yup from "yup";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import Header from "../../util/Header/header";
+import Header from "../../components/Header/header";
 import { RegisterButton } from "../../util/Style/global";
 import { RegisterPage } from "./style";
 import api from "../../services/requestAPI";
+import RegexCnpj from "../../util/Regex/regexCnpj";
+import ResetInitialValues from "../../util/ResetsFormik/initialValues";
+
+toast.configure();
 
 export default function RegisterStore() {
-	const [inputError, setInputError] = useState(false);
-
 	const history = useHistory();
 
 	const handleSubmit = async (values) => {
+		const newCnpj = RegexCnpj(values.cnpj);
+
 		try {
-			const response = await api.post("/store", values);
+			if (newCnpj.length < 14) {
+				toast.error("CNPJ Inválido", {
+					position: toast.POSITION.TOP_CENTER,
+					autoClose: 3000,
+				});
+			} else if (
+				values.cod_emp.trim().length < 8 ||
+				values.name.trim().length < 3
+			) {
+				toast.error("Preencha com informações válidas", {
+					position: toast.POSITION.TOP_CENTER,
+					autoClose: 3000,
+				});
+			} else {
+				const response = await api.post(
+					`/server/${values.serv_ip}/store`,
+					values
+				);
 
-			alert(`${response.data}`);
+				window.location.reload();
 
-			history.push("/home");
-		} catch (error) {
-			alert("Não foi possível cadastrar essa loja, tente novamente!");
+				toast.success(response.data, {
+					position: toast.POSITION.TOP_CENTER,
+					autoClose: 3000,
+				});
+			}
+		} catch (erro) {
+			toast.error(erro.response.data.error, {
+				position: toast.POSITION.TOP_CENTER,
+				autoClose: 3000,
+			});
 		}
 	};
 
@@ -48,81 +78,94 @@ export default function RegisterStore() {
 			<section className="register-container">
 				<h2>Cadastrar loja</h2>
 				<Formik
-					initialValues={{}}
+					initialValues={ResetInitialValues}
 					onSubmit={handleSubmit}
 					validationSchema={validations}
 				>
-					<Form className="register-container__form">
-						<div className="register-container__form__left">
-							<p className="register-container__form__title">
-								Informações da loja
-							</p>
-							<div className="register-container__form__group">
-								<ErrorMessage name="name" component="span" />
-								<Field
-									name="name"
-									placeholder="Nome:"
-									type="text"
-									className={`register-container__form__left__name ${
-										inputError ? "error" : ""
-									}`}
-								/>
-								<p className="register-container__form__left__userIcon"></p>
-							</div>
-							<div className="register-container__form__group">
-								<ErrorMessage name="cnpj" component="span" />
-								<Field
-									name="cnpj"
-									placeholder="CNPJ:"
-									type="text"
-									className={`register-container__form__left__cnpj ${
-										inputError ? "error" : ""
-									}`}
-								/>
-								<p className="register-container__form__left__cnpjIcon"></p>
-							</div>
-							<div className="register-container__form__group">
-								<ErrorMessage name="cod_emp" component="span" />
-								<Field
-									name="cod_emp"
-									placeholder="Código da empresa:"
-									type="text"
-									className={`register-container__form__left__cod ${
-										inputError ? "error" : ""
-									}`}
-								/>
-								<p className="register-container__form__left__codIcon"></p>
-							</div>
-						</div>
-						<div className="register-container__form__right">
-							<p className="register-container__form__title">
-								Ambiente da loja
-							</p>
-							<div className="register-container__form__group">
-								<ErrorMessage name="serv_ip" component="span" />
-								<Field
-									name="serv_ip"
-									placeholder="Endereço do servidor:"
-									type="text"
-									className={`register-container__form__right__serv ${
-										inputError ? "error" : ""
-									}`}
-								/>
-								<p className="register-container__form__right__servIcon"></p>
-							</div>
-						</div>
-						<div className="register-container__form__buttons">
-							<RegisterButton onClick={() => history.push("/home")}>
-								Voltar
-							</RegisterButton>
-							<RegisterButton
-								type="submit"
-								onClick={() => setInputError(!inputError)}
-							>
-								Cadastrar loja
-							</RegisterButton>
-						</div>
-					</Form>
+					{({ dirty, isValid }) => {
+						const submitIsValid = !dirty || !isValid;
+
+						return (
+							<Form className="register-container__form">
+								<div className="register-container__form__left">
+									<p className="register-container__form__title">
+										Informações da loja
+									</p>
+									<div className="register-container__form__group">
+										<ErrorMessage name="name" component="span" />
+										<Field
+											name="name"
+											placeholder="Nome:"
+											type="text"
+											className={`register-container__form__left__name`}
+										/>
+										<p className="register-container__form__left__userIcon"></p>
+									</div>
+									<div className="register-container__form__group">
+										<ErrorMessage name="cnpj" component="span" />
+										<Field
+											name="cnpj"
+											placeholder="CNPJ:"
+											type="text"
+											className={`register-container__form__left__cnpj`}
+										/>
+										<p className="register-container__form__left__cnpjIcon"></p>
+									</div>
+									<div className="register-container__form__group">
+										<ErrorMessage name="cod_emp" component="span" />
+										<Field
+											name="cod_emp"
+											placeholder="Código da empresa:"
+											type="text"
+											className={`register-container__form__left__cod`}
+										/>
+										<p className="register-container__form__left__codIcon"></p>
+									</div>
+								</div>
+								<div className="register-container__form__right">
+									<p className="register-container__form__title">
+										Ambiente da loja
+									</p>
+									<div className="register-container__form__group">
+										<ErrorMessage name="serv_ip" component="span" />
+										<Field
+											name="serv_ip"
+											placeholder="Endereço do servidor:"
+											type="text"
+											className={`register-container__form__right__serv`}
+										/>
+										<p className="register-container__form__right__servIcon"></p>
+									</div>
+								</div>
+								<div className="register-container__form__buttons">
+									<RegisterButton type="submit" disabled={submitIsValid}>
+										Cadastrar loja
+									</RegisterButton>
+									<RegisterButton
+										onClick={() => {
+											if (sessionStorage.getItem("permission") === "project") {
+												history.push("/homeproject");
+											} else if (
+												sessionStorage.getItem("permission") === "master"
+											) {
+												history.push("/homemaster");
+											} else if (
+												sessionStorage.getItem("permission") === "search"
+											) {
+												history.push("/homesearch");
+											} else if (
+												sessionStorage.getItem("permission") === "cloud"
+											) {
+												history.push("/homecloud");
+											}
+										}}
+									>
+										Voltar
+									</RegisterButton>
+								</div>
+							</Form>
+						);
+					}}
 				</Formik>
 			</section>
 			<section className="register-style"></section>

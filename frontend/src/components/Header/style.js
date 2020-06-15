@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import variables from "../../util/Style/variables";
+
 export const HeaderPage = styled.section`
 	.header-container {
 		display: flex;
@@ -17,7 +19,7 @@ export const HeaderPage = styled.section`
 			p {
 				font-size: 18px;
 				margin: 30px 0 0 24px;
-				color: #fff;
+				color: ${variables.colors.white};
 			}
 		}
 		&__logout {
@@ -27,8 +29,8 @@ export const HeaderPage = styled.section`
 			display: flex;
 			align-items: center;
 			font-size: 20px;
-			background: #fff;
-			color: #3a0d51;
+			background: ${variables.colors.white};
+			color: ${variables.colors.primaryColor};
 			line-height: 28px;
 			svg {
 				margin-right: 10px;

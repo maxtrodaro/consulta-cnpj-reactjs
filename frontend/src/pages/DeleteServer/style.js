@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import variables from "../../util/Style/variables";
-import iconCnpj from "../../assets/icon-cnpj.svg";
+import iconServer from "../../assets/icon-serv.svg";
 
 export const DeletePage = styled.section`
 	.delete {
@@ -75,8 +75,8 @@ export const DeletePage = styled.section`
 						color: ${variables.colors.red};
 					}
 				}
-				&__cnpjIcon {
-					background: url(${iconCnpj}) no-repeat;
+				&__serverIcon {
+					background: url(${iconServer}) no-repeat;
 					position: absolute;
 					display: block;
 					height: 28px;

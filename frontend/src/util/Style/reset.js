@@ -1,5 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
+import variables from "./variables";
+
 export default createGlobalStyle`
 	@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap");
 
@@ -14,9 +16,9 @@ export default createGlobalStyle`
 		font: 400 14px 'OpenSans', sans-serif;
 		-webkit-font-smoothing: antialiased;
 		height: 100vh;
-		background: #3A0D51;
-		background: -webkit-linear-gradient(to right, #3A0D51, #621D3D);
-		background: linear-gradient(to right, #3A0D51, #621D3D);
+		background: ${variables.colors.primaryColor};
+		background: -webkit-linear-gradient(to right, ${variables.colors.primaryColor}, ${variables.colors.linearColor});
+		background: linear-gradient(to right, ${variables.colors.primaryColor}, ${variables.colors.linearColor});
 		overflow: hidden;
 	}
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import Header from "../../util/Header/header";
+import Header from "../../components/Header/header";
 import { HomePage } from "./style";
 import { HomeButton } from "../../util/Style/global";
 

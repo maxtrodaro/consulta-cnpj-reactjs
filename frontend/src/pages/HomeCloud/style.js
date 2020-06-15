@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import variables from "../../util/Style/variables";
+
 export const HomePage = styled.section`
 	.home-container {
 		&__buttons {
@@ -17,7 +19,7 @@ export const HomePage = styled.section`
 				display: flex;
 				flex-direction: column;
 				align-items: center;
-				background: #fff;
+				background: ${variables.colors.white};
 				border-radius: 6px 6px 0 0;
 				img {
 					padding: 40px;
@@ -29,14 +31,14 @@ export const HomePage = styled.section`
 		&__style {
 			width: 100%;
 			height: 200px;
-			background: #fff;
+			background: ${variables.colors.white};
 			position: absolute;
 			top: 46%;
 		}
 		&__style2 {
 			width: 100%;
 			height: 200px;
-			background: #fff;
+			background: ${variables.colors.white};
 			position: absolute;
 			top: 62%;
 			border-radius: 90% 90% 100% 100%;

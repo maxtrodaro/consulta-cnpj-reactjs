@@ -1,0 +1,27 @@
+export default {
+	colors: {
+		white: "#FFFFFF",
+		backgroundWhite: "#FAFAFA",
+		black: "#000000",
+		lightBlack: "#333333",
+		gray: "#707070",
+		backgroundGray: "#EEEEEE",
+		lightGray: "#F5F5F5",
+		mediumGray: "#CCCCCC",
+		darkGray: "#757575",
+		borderGray: "#E0E0E0",
+		red: "#F44336",
+		primaryColor: "#3A0D51",
+		linearColor: "#621D3D",
+		secundaryColor: "#F57C00",
+	},
+	border: {
+		default: "6px",
+		large: "10px",
+		top: "6px 6px 0 0",
+		bottom: "0 0 6px 6px",
+		right: "0 6px 6px 0",
+		left: "6px 0 0 6px",
+		bigger: "90% 90% 100% 100%",
+	},
+};

@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 import variables from "../../util/Style/variables";
-import iconCnpj from "../../assets/icon-cnpj.svg";
+import iconNameServer from "../../assets/icon-server-name.svg";
+import iconServer from "../../assets/icon-serv.svg";
 
 export const DeletePage = styled.section`
 	.delete {
@@ -18,13 +19,13 @@ export const DeletePage = styled.section`
 			}
 			&__form {
 				display: flex;
-				justify-content: space-between;
+				flex-direction: column;
 				position: absolute;
 				width: 40%;
 				background: ${variables.colors.lightGray};
 				border-radius: 10px;
-				height: 35%;
-				padding: 3%;
+				height: 50%;
+				padding: 2.5%;
 				top: 30%;
 				&__group {
 					position: relative;
@@ -75,8 +76,17 @@ export const DeletePage = styled.section`
 						color: ${variables.colors.red};
 					}
 				}
-				&__cnpjIcon {
-					background: url(${iconCnpj}) no-repeat;
+				&__nameIcon {
+					background: url(${iconNameServer}) no-repeat;
+					position: absolute;
+					display: block;
+					height: 28px;
+					width: 25px;
+					top: 40px;
+					left: 20px;
+				}
+				&__serverIcon {
+					background: url(${iconServer}) no-repeat;
 					position: absolute;
 					display: block;
 					height: 28px;
