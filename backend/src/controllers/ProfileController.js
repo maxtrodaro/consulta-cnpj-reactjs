@@ -1,71 +1,91 @@
-const connection = require("../database/connection");
+const Profile = require("../models/Profile");
+const yup = require("yup");
+
 const generateToken = require("../util/Token/generateToken");
 
 module.exports = {
 	async getProfile(request, response) {
-		const profile = await connection("profile").select("*");
+		const profile = await Profile.findAll();
 
 		if (profile.length < 1) {
-			return response.json({ error: `Don't have users yet.` });
+			return response.json({ error: `Não existem usuários ainda` });
 		}
-
 		return response.json(profile);
 	},
 
 	async postProfile(request, response) {
-		const { name, username, password } = request.body;
+		const schema = yup.object().shape({
+			name: yup.string().required(),
+			username: yup.string().required(),
+			password: yup.string().required().min(8),
+			permission: yup.string().required(),
+		});
 
-		const profile = await connection("profile")
-			.where("username", username)
-			.select("username");
-
-		if (!profile.length) {
-			const [user] = await connection("profile").insert({
-				name,
-				username,
-				password,
-			});
-
-			const token = generateToken({ id: user });
-
-			return response.json({ token });
-		} else {
-			return response.json("Usuário já cadastrado, tente novamente!");
+		if (!(await schema.isValid(request.body))) {
+			return response
+				.status(400)
+				.json({ error: "Preencha os campos corretamente" });
 		}
+
+		const profile = await Profile.findOne({
+			where: { username: request.body.username },
+		});
+
+		if (profile) {
+			return response.status(400).json({ error: "Este usuário já existe" });
+		}
+
+		await Profile.create(request.body);
+
+		return response.status(200).json({
+			user: "Usuário cadastrado com sucesso",
+		});
 	},
 
 	async deleteProfile(request, response) {
 		const { username } = request.params;
 
-		const profile = await connection("profile")
-			.where("username", username)
-			.first();
+		const profile = await Profile.findOne({
+			where: {
+				username: username,
+			},
+		});
 
 		if (!profile) {
-			return response.json({ error: "Profile not found." });
+			return response.status(400).json({ error: "Usuário não encontrado" });
 		}
 
-		await connection("profile").where("username", username).delete();
+		await profile.destroy();
 
 		return response.status(204).send();
 	},
 
 	async editProfile(request, response) {
-		const { name, username } = request.body;
 		const { oldUsername } = request.params;
 
-		const profile = await connection("profile")
-			.where("username", oldUsername)
-			.first();
+		const schema = yup.object().shape({
+			name: yup.string().required(),
+			username: yup.string().required(),
+			permission: yup.string().required(),
+		});
 
-		if (!profile) {
-			return response.json({ error: "Username not found" });
+		if (!(await schema.isValid(request.body))) {
+			return response
+				.status(400)
+				.json({ error: "Preencha os campos corretamente" });
 		}
 
-		await connection("profile").where("username", oldUsername).update({
-			name,
-			username,
+		const profile = await Profile.findOne({
+			where: {
+				username: oldUsername,
+			},
 		});
+
+		if (!profile) {
+			return response.status(400).json({ error: "Usuário não encontrado" });
+		}
+
+		await profile.update(request.body);
 
 		return response.status(204).send();
 	},

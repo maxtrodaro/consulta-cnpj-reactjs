@@ -1,75 +1,165 @@
-const connection = require("../database/connection");
+const Store = require("../models/Store");
+const ServerStore = require("../models/Server");
+const yup = require("yup");
 
 module.exports = {
 	async getStore(request, response) {
-		const store = await connection("store").select("*");
-		const [counter] = await connection("store").count();
+		const store = await Store.findAndCountAll();
 
 		if (store.length < 1) {
-			return response.json({ error: `Don't have stores yet.` });
+			return response.json({ error: "Ainda não existem lojas" });
 		}
 
-		response.header("Total-Count", counter["count(*)"]);
+		return response.json(store);
+	},
+
+	async getStoresWithServer(request, response) {
+		const { ip } = request.params;
+
+		const store = await Store.findAndCountAll({
+			where: {
+				serv_ip: ip,
+			},
+		});
+
+		if (store.length < 1) {
+			return response.json({ error: "Ainda não existem lojas nesse servidor" });
+		}
 
 		return response.json(store);
 	},
 
 	async postStore(request, response) {
-		const { name, cnpj, cod_emp, serv_ip } = request.body;
+		const schemaBody = yup.object().shape({
+			name: yup.string().required(),
+			cnpj: yup.string().required().length(14),
+			cod_emp: yup.string().required().length(8),
+		});
 
-		const storeCnpj = await connection("store")
-			.where("cnpj", cnpj)
-			.select("cnpj");
+		const schemaParam = yup.object().shape({
+			serv_ip: yup.string().required().min(8).max(15),
+		});
 
-		const storeCodemp = await connection("store")
-			.where("cod_emp", cod_emp)
-			.select("cod_emp");
-
-		if (!storeCnpj.length && !storeCodemp.length) {
-			await connection("store").insert({
-				name,
-				cnpj,
-				cod_emp,
-				serv_ip,
-			});
-
-			return response.json("Loja Cadastrada!");
-		} else {
-			return response.status(400).json("Loja já cadastrada, tente novamente!");
+		if (
+			!(await schemaBody.isValid(request.body)) ||
+			!(await schemaParam.isValid(request.params))
+		) {
+			return response
+				.status(400)
+				.json({ error: "Preencha os campos corretamente" });
 		}
+
+		const { serv_ip } = request.params;
+		const { name, cnpj, cod_emp } = request.body;
+
+		const server = await ServerStore.findOne({
+			where: {
+				ip: serv_ip,
+			},
+		});
+
+		if (!server) {
+			return response.status(400).json({ error: "Servidor não encontrado" });
+		}
+
+		const storeCnpj = await Store.findOne({
+			where: {
+				cnpj: cnpj,
+			},
+		});
+
+		if (storeCnpj) {
+			return response.status(400).json({ error: "CNPJ já cadastrado" });
+		}
+
+		const validStore = await Store.findOne({
+			where: {
+				cod_emp: cod_emp,
+				serv_ip: serv_ip,
+			},
+		});
+
+		if (validStore) {
+			return response.status(400).json({ error: "Loja já cadastrada" });
+		}
+
+		await Store.create({
+			name,
+			cnpj,
+			cod_emp,
+			serv_ip,
+		});
+
+		return response.status(200).json("Loja Cadastrada!");
 	},
 
 	async deleteStore(request, response) {
 		const { cnpj } = request.params;
-		// Lembrar de passar o usuário que apagou
 
-		const store = await connection("store").where("cnpj", cnpj).first();
+		const store = await Store.findOne({
+			where: {
+				cnpj: cnpj,
+			},
+		});
 
 		if (!store) {
 			return response.status(400).json({ error: "Loja não encontrada." });
 		}
 
-		await connection("store").where("cnpj", cnpj).delete();
+		await store.destroy();
 
 		return response.status(204).send();
 	},
 
 	async editStore(request, response) {
-		const { name, cnpjBody, cod_emp, serv_ip } = request.body;
 		const { cnpj } = request.params;
+		const { cod_emp, serv_ip } = request.body;
 
-		const store = await connection("store").where("cnpj", cnpj).first();
+		const schema = yup.object().shape({
+			name: yup.string().required(),
+			cnpj: yup.string().required().length(14),
+			cod_emp: yup.string().required().length(8),
+			serv_ip: yup.string().required().min(8).max(15),
+		});
 
-		if (!store) {
-			return response.status(401).json({ error: "Loja não encontrada." });
+		if (!(await schema.isValid(request.body))) {
+			return response
+				.status(400)
+				.json({ error: "Preencha os campos corretamente" });
 		}
 
-		await connection("store").where("cnpj", cnpj).update({
-			name,
-			cnpjBody,
-			cod_emp,
-			serv_ip,
+		const store = await Store.findOne({
+			where: {
+				cnpj: cnpj,
+			},
 		});
+
+		if (!store) {
+			return response.status(400).json({ error: "Loja não encontrada" });
+		}
+
+		const validServer = await ServerStore.findOne({
+			where: {
+				ip: serv_ip,
+			},
+		});
+
+		if (!validServer) {
+			return response.status(400).json({ error: "Servidor não encontrado!" });
+		}
+
+		const validStore = await Store.findOne({
+			where: {
+				cod_emp: cod_emp,
+				serv_ip: serv_ip,
+			},
+		});
+
+		if (validStore) {
+			return response.status(400).json({ error: "Loja já existente" });
+		}
+
+		await store.update(request.body);
 
 		return response.status(204).send();
 	},

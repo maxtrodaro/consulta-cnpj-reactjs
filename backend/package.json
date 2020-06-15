@@ -1,27 +1,39 @@
 {
-  "name": "consultacnpj",
-  "version": "1.0.0",
-  "description": "Consultas de CNPJ da Linx",
-  "main": "index.js",
-  "scripts": {
-    "start": "cross-env NODE_ENV=development nodemon src/server.js",
-    "test": "cross-env NODE_ENV=test jest"
-  },
-  "keywords": [],
-  "author": "Eduardo Godoy",
-  "license": "ISC",
-  "dependencies": {
-    "celebrate": "^12.0.1",
-    "cors": "^2.8.5",
-    "cross-env": "^7.0.2",
-    "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "knex": "^0.20.13",
-    "nodemon": "^2.0.2",
-    "sqlite3": "^4.1.1"
-  },
-  "devDependencies": {
-    "jest": "^25.2.4",
-    "supertest": "^4.0.2"
-  }
+	"name": "consultacnpj",
+	"version": "1.0.0",
+	"description": "Consultas de CNPJ da Linx",
+	"main": "index.js",
+	"scripts": {
+		"createdb": "npx sequelize db:create",
+		"database": "npx sequelize db:migrate",
+		"start": "cross-env NODE_ENV=development nodemon src/server.js",
+		"pretest": "cross-env NODE_ENV=test sequelize db:migrate",
+		"test": "cross-env NODE_ENV=test jest --runInBand --detectOpenHandles",
+		"postest": "cross-env NODE_ENV=test sequelize db:migrate:undo:all",
+		"production": "cross-env NODE_ENV=production node src/server.js"
+	},
+	"keywords": [],
+	"author": "Eduardo Godoy",
+	"license": "ISC",
+	"dependencies": {
+		"bcryptjs": "^2.4.3",
+		"cors": "^2.8.5",
+		"cross-env": "^7.0.2",
+		"dotenv": "^8.2.0",
+		"express": "^4.17.1",
+		"factory-girl": "^5.0.4",
+		"jsonwebtoken": "^8.5.1",
+		"knex": "^0.20.13",
+		"pg": "^7.18.2",
+		"pg-hstore": "^2.3.3",
+		"sequelize": "^5.21.7",
+		"yup": "^0.28.4"
+	},
+	"devDependencies": {
+		"faker": "^4.1.0",
+		"jest": "^25.2.4",
+		"nodemon": "^2.0.2",
+		"sequelize-cli": "^5.5.1",
+		"supertest": "^4.0.2"
+	}
 }

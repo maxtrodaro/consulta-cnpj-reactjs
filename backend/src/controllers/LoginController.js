@@ -1,40 +1,46 @@
-const connection = require("../database/connection");
+const Profile = require("../models/Profile");
+const yup = require("yup");
 const generateToken = require("../util/Token/generateToken");
 
 module.exports = {
-	async loginProfile(request, response) {
-		const { username } = request.body;
+	async jwtProfile(request, response) {
+		const schema = yup.object().shape({
+			username: yup.string().required(),
+			password: yup.string().required(),
+		});
 
-		const name = await connection("profile")
-			.where("username", username)
-			.select("name")
-			.first();
-
-		if (!name) {
+		if (!(await schema.isValid(request.body))) {
 			return response
 				.status(400)
-				.json({ error: "No profile found with this username" });
+				.json({ error: "Preencha os campos corretamente" });
 		}
 
-		return response.json(name);
-	},
+		const { username } = request.body;
 
-	async jwtProfile(request, response) {
-		const { username, password } = request.body;
+		const profile = await Profile.findOne({
+			where: { username: request.body.username },
+		});
 
-		const user = await connection("profile")
-			.where({
-				username: username,
-				password: password,
-			})
-			.select("id", "username", "password", "name");
-
-		if (user.length < 1) {
-			return response.status(400).json("Usuário não encontrado");
+		if (!profile) {
+			return response.status(400).json({ error: "Usuário não encontrado" });
 		}
 
-		const token = generateToken({ id: user[0].id });
+		if (!(await profile.checkPassword(request.body.password))) {
+			return response.status(400).json({ error: "Senha inválida" });
+		}
 
-		return response.status(200).send({ user, token });
+		const { id, name, permission } = profile;
+
+		const token = generateToken({ id: profile.id });
+
+		return response.status(200).json({
+			user: {
+				id,
+				name,
+				username,
+				permission,
+			},
+			token,
+		});
 	},
 };
